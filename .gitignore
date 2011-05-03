@@ -1,0 +1,10 @@
+*.opensdf
+*.sdf
+*.suo
+*.user
+*.userprefs
+*.orig
+*ReSharper*
+
+*/bin/*
+*/obj/*
