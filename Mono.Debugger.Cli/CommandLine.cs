@@ -32,6 +32,7 @@ namespace Mono.Debugger.Cli
                 new DisassembleCommand(),
                 new LocalsCommand(),
                 new EvaluationCommand(),
+                new WatchCommand(),
             };
         }
 

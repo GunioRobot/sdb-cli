@@ -93,6 +93,8 @@
     <Compile Include="CommandArgumentException.cs" />
     <Compile Include="Commands\LocalsCommand.cs" />
     <Compile Include="Commands\EvaluationCommand.cs" />
+    <Compile Include="Debugging\SoftDebuggerCliSession.cs" />
+    <Compile Include="Commands\WatchCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Mono.Debugger.Cli.snk" />

@@ -25,7 +25,7 @@ namespace Mono.Debugger.Cli.Debugging
             }
         }
 
-        public static SoftDebuggerSession Session { get; set; }
+        public static SoftDebuggerCliSession Session { get; set; }
 
         public static Backtrace CurrentBacktrace { get; private set; }
 
@@ -44,7 +44,7 @@ namespace Mono.Debugger.Cli.Debugging
 
         private static void InitializeSession()
         {
-            Session = new SoftDebuggerSession
+            Session = new SoftDebuggerCliSession
             {
                 Breakpoints = new BreakpointStore(),
             };
