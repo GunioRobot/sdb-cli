@@ -34,7 +34,7 @@ namespace Mono.Debugger.Cli
             Logger.WriteInfoLine("Welcome to the Mono Soft Debugger CLI!");
             Logger.WriteInfoLine("Using {0} and {1} with features: {2}", typeof(VirtualMachine).Assembly.GetName().Name,
                 typeof(SoftDebuggerSession).Assembly.GetName().Name, SoftDebugger.Features);
-            Logger.WriteInfoLine("Type \"help\" for a list of commands.");
+            Logger.WriteInfoLine("Type \"Help\" for a list of commands.");
 
             string line;
             while ((line = Console.ReadLine()) != null)

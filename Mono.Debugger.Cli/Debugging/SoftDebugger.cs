@@ -29,6 +29,8 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static string WorkingDirectory { get; set; }
 
+        public static bool IsExcepted { get; private set; }
+
         static SoftDebugger()
         {
             InitializeSession();
@@ -85,15 +87,17 @@ namespace Mono.Debugger.Cli.Debugging
             	Logger.WriteInfoLine("Breakpoint trace: {0} {0}", be, trace);
             };
 
-        	Session.CustomBreakEventHitHandler += (actionId, be) =>
-        	{
-        		Logger.WriteInfoLine("Custom break event: {0} {1}", actionId, be);
-        		return true;
-        	};
+            Session.CustomBreakEventHitHandler += (actionId, be) =>
+            {
+                Logger.WriteInfoLine("Custom break event: {0} {1}", actionId, be);
+                return true;
+            };
         }
 
         private static void ExceptionHandler(object sender, TargetEventArgs e)
         {
+            IsExcepted = true;
+
             var session = (SoftDebuggerSession)sender;
             var thread = session.VirtualMachine.GetThreads().Single(x => x.Id == e.Thread.Id);
             var ex = session.GetExceptionObject(thread);
@@ -107,7 +111,7 @@ namespace Mono.Debugger.Cli.Debugging
                 InitializeSession();
 
             // TODO: Locate Mono somehow...
-            Session.Run(new SoftDebuggerStartInfo("C:\\Program Files (x86)\\Mono-2.10.2", new Dictionary<string, string>())
+            Session.Run(new SoftDebuggerStartInfo("/usr/local", new Dictionary<string, string>())
             {
                 Arguments = args,
                 Command = path,
@@ -120,8 +124,10 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static void Stop()
         {
-            Session.Exit();
-            Session.Dispose();
+            if (Session.IsRunning || IsExcepted)
+                Session.Exit();
+
+            //Session.Dispose();
             Session = null;
         }
     }

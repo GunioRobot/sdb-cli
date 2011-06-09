@@ -4,6 +4,7 @@
 *.user
 *.userprefs
 *.orig
+*.pidb
 *ReSharper*
 
 */bin/*
