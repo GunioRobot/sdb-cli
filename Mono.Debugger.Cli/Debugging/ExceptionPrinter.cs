@@ -28,7 +28,7 @@ namespace Mono.Debugger.Cli.Debugging
         private static void PrintException(string p, ThreadMirror thread, MethodMirror getMsg, ObjectMirror x)
         {
             var msg = (StringMirror)x.InvokeMethod(thread, getMsg, new List<Value>());
-            Logger.WriteErrorLine("{0}{1}: {2}", p, x.Type.Name, msg.Value);
+            Logger.WriteErrorLine("{0}{1}: {2}", p, x.Type.FullName, msg.Value);
         }
 
         private static readonly List<Value> _noValues = new List<Value>();
