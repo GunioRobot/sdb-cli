@@ -28,6 +28,7 @@ namespace Mono.Debugger.Cli
                 new StopCommand(),
                 new BreakpointCommand(),
                 new BacktraceCommand(),
+                new FrameCommand(),
             };
         }
 

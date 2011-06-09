@@ -29,6 +29,8 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static SoftDebuggerBacktrace CurrentBacktrace { get; private set; }
 
+        public static Mono.Debugging.Client.StackFrame CurrentStackFrame { get; set; }
+
         public static string WorkingDirectory { get; set; }
 
         public static bool IsPaused { get; private set; }
