@@ -27,9 +27,11 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static SoftDebuggerSession Session { get; set; }
 
+        public static SoftDebuggerBacktrace CurrentBacktrace { get; private set; }
+
         public static string WorkingDirectory { get; set; }
 
-        public static bool IsExcepted { get; private set; }
+        public static bool IsPaused { get; private set; }
 
         static SoftDebugger()
         {
@@ -96,11 +98,12 @@ namespace Mono.Debugger.Cli.Debugging
 
         private static void ExceptionHandler(object sender, TargetEventArgs e)
         {
-            IsExcepted = true;
-
             var session = (SoftDebuggerSession)sender;
             var thread = session.VirtualMachine.GetThreads().Single(x => x.Id == e.Thread.Id);
             var ex = session.GetExceptionObject(thread);
+
+            IsPaused = true;
+            CurrentBacktrace = new SoftDebuggerBacktrace (session, thread);
 
             ExceptionPrinter.Print(thread, ex);
         }
@@ -124,7 +127,7 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static void Stop()
         {
-            if (Session.IsRunning || IsExcepted)
+            if (Session.IsRunning || IsPaused)
                 Session.Exit();
 
             //Session.Dispose();
