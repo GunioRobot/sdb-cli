@@ -28,8 +28,8 @@ namespace Mono.Debugger.Cli.Commands
         public void Execute(CommandArguments args)
         {
             var path = args.NextString();
-
             var session = SoftDebugger.Session;
+
             if (session != null && session.IsRunning)
             {
                 // TODO: Display the actual process name (not Mono) somehow...

@@ -30,6 +30,8 @@ namespace Mono.Debugger.Cli
                 new BacktraceCommand(),
                 new FrameCommand(),
                 new DisassembleCommand(),
+                new LocalsCommand(),
+                new EvaluationCommand(),
             };
         }
 

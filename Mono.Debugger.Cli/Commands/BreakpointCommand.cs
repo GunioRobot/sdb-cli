@@ -32,8 +32,8 @@ namespace Mono.Debugger.Cli.Commands
         public void Execute(CommandArguments args)
         {
             var op = args.NextString();
-
             var session = SoftDebugger.Session;
+
             if (session == null)
             {
                 Logger.WriteErrorLine("No program loaded.");
