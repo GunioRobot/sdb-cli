@@ -22,6 +22,7 @@ namespace Mono.Debugger.Cli
             {
                 new HelpCommand(),
                 new ExitCommand(),
+                new GetDirectoryCommand(),
                 new SetDirectoryCommand(),
                 new StartCommand(),
                 new StopCommand(),
