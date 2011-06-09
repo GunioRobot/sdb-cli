@@ -273,12 +273,12 @@ namespace Mono.Debugger.Cli
 
         private static Exception MissingArgument()
         {
-            return new Exception("Missing command argument.");
+            return new CommandArgumentException("Missing command argument.");
         }
 
         private static Exception InvalidFormat()
         {
-            return new Exception("Incorrectly formatted argument.");
+            return new CommandArgumentException("Incorrectly formatted argument.");
         }
     }
 }

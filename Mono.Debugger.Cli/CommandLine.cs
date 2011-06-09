@@ -29,6 +29,7 @@ namespace Mono.Debugger.Cli
                 new BreakpointCommand(),
                 new BacktraceCommand(),
                 new FrameCommand(),
+                new DisassembleCommand(),
             };
         }
 
@@ -63,6 +64,9 @@ namespace Mono.Debugger.Cli
                 {
                     Logger.WriteErrorLine("Error executing command {0}:", cmd);
                     Logger.WriteErrorLine(ex.Message);
+
+                    if (!(ex is CommandArgumentException))
+                        Logger.WriteErrorLine(ex.StackTrace);
                 }
 
                 if (Stop)

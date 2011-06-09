@@ -27,7 +27,7 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static SoftDebuggerSession Session { get; set; }
 
-        public static SoftDebuggerBacktrace CurrentBacktrace { get; private set; }
+        public static Backtrace CurrentBacktrace { get; private set; }
 
         public static Mono.Debugging.Client.StackFrame CurrentStackFrame { get; set; }
 
@@ -105,7 +105,8 @@ namespace Mono.Debugger.Cli.Debugging
             var ex = session.GetExceptionObject(thread);
 
             IsPaused = true;
-            CurrentBacktrace = new SoftDebuggerBacktrace (session, thread);
+            CurrentBacktrace = e.Backtrace;
+            CurrentStackFrame = CurrentBacktrace.GetFrame(CurrentBacktrace.FrameCount - 1);
 
             ExceptionPrinter.Print(thread, ex);
         }

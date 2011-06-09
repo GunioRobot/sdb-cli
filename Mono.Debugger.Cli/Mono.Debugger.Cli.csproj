@@ -89,6 +89,8 @@
     <Compile Include="Commands\GetDirectoryCommand.cs" />
     <Compile Include="Commands\BacktraceCommand.cs" />
     <Compile Include="Commands\FrameCommand.cs" />
+    <Compile Include="Commands\DisassembleCommand.cs" />
+    <Compile Include="CommandArgumentException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Mono.Debugger.Cli.snk" />

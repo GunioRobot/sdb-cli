@@ -30,9 +30,9 @@ namespace Mono.Debugger.Cli.Commands
             }
 
             var bt = SoftDebugger.CurrentBacktrace;
-            var count = bt.FrameCount - 1;
-            foreach (var frame in bt.GetStackFrames(0, bt.FrameCount))
+            for (var i = 0; i < bt.FrameCount; i++)
             {
+                var frame = bt.GetFrame(i);
                 var loc = frame.SourceLocation;
                 var location = "<unknown>";
 
@@ -43,8 +43,7 @@ namespace Mono.Debugger.Cli.Commands
                 // TODO: Build the method name.
                 var method = loc.MethodName;
 
-                Logger.WriteInfoLine("[{0}] {1}: {2}", count, location, method);
-                count--;
+                Logger.WriteInfoLine("[{0}] {1}: {2}", i, location, method);
             }
         }
     }

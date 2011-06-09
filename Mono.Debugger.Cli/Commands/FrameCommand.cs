@@ -34,13 +34,13 @@ namespace Mono.Debugger.Cli.Commands
             var bt = SoftDebugger.CurrentBacktrace;
             var frame = args.NextInt32();
 
-            if (frame > bt.FrameCount - 1)
+            if (frame < 0 || frame > bt.FrameCount - 1)
             {
                 Logger.WriteErrorLine("Invalid stack frame.");
                 return;
             }
 
-            SoftDebugger.CurrentStackFrame = bt.GetStackFrames(frame, frame)[0];
+            SoftDebugger.CurrentStackFrame = bt.GetFrame(frame);
             Logger.WriteInfoLine("Switched to frame: {0}", frame);
         }
     }
