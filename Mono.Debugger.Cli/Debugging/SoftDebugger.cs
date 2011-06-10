@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using Mono.Debugger.Cli.Logging;
 using Mono.Debugger.Soft;
 using Mono.Debugging.Client;
@@ -116,8 +117,32 @@ namespace Mono.Debugger.Cli.Debugging
             if (Session == null)
                 InitializeSession();
 
-            // TODO: Locate Mono somehow...
-            Session.Run(new SoftDebuggerStartInfo("/usr/local", new Dictionary<string, string>())
+            string runtimePath = null;
+            foreach (var prefix in Configuration.RuntimePaths)
+            {
+                var fullPath = Path.Combine(prefix, "bin");
+
+                if (Environment.OSVersion.Platform != PlatformID.Win32NT)
+                    fullPath = Path.Combine(fullPath, "mono");
+                else
+                    fullPath = Path.Combine(fullPath, "mono.exe");
+
+                if (File.Exists(fullPath))
+                {
+                    runtimePath = prefix;
+                    break;
+                }
+            }
+
+            if (runtimePath == null)
+            {
+                Logger.WriteErrorLine("No valid runtime found.");
+                return;
+            }
+            else
+                Logger.WriteInfoLine("Using runtime: {0}", runtimePath);
+
+            Session.Run(new SoftDebuggerStartInfo(runtimePath, new Dictionary<string, string>())
             {
                 Arguments = args,
                 Command = path,

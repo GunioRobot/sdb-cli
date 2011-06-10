@@ -56,8 +56,10 @@
     <AssemblyOriginatorKeyFile>Mono.Debugger.Cli.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <Reference Include="System">
+    </Reference>
+    <Reference Include="System.Core">
+    </Reference>
     <Reference Include="Mono.Debugger.Soft, Version=0.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\Mono.Debugger.Soft.dll</HintPath>
@@ -67,6 +69,8 @@
     </Reference>
     <Reference Include="Mono.Debugging.Soft, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5e9ce85b0923c84f">
       <HintPath>..\Dependencies\Mono.Debugging.Soft.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration">
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -95,9 +99,11 @@
     <Compile Include="Commands\EvaluationCommand.cs" />
     <Compile Include="Debugging\SoftDebuggerCliSession.cs" />
     <Compile Include="Commands\WatchCommand.cs" />
+    <Compile Include="Configuration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Mono.Debugger.Cli.snk" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
