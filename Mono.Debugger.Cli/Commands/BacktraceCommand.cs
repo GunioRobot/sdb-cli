@@ -77,6 +77,9 @@ namespace Mono.Debugger.Cli.Commands
                     var reader = SoftDebugger.Session.GetSourceReader(fileName);
                     if (reader != null)
                     {
+                        if (File.GetLastWriteTime(fileName) > SoftDebugger.CurrentExecutable.LastWriteTime)
+                            Logger.WriteWarningLine("Source file {0} is newer than the debugged executable!", fileName);
+
                         for (var j = 0; j < loc.Line - 1; j++)
                             reader.ReadLine();
 

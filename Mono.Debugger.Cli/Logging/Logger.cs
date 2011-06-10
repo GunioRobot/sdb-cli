@@ -46,6 +46,16 @@ namespace Mono.Debugger.Cli.Logging
             WriteEmphasis(string.Format("{0}{1}", format, Environment.NewLine), args);
         }
 
+        public static void WriteWarning(string format, params object[] args)
+        {
+            Write(ConsoleColor.Yellow, format, args);
+        }
+
+        public static void WriteWarningLine(string format, params object[] args)
+        {
+            WriteWarning(string.Format("{0}{1}", format, Environment.NewLine), args);
+        }
+
         public static void WriteError(string format, params object[] args)
         {
             Write(ConsoleColor.Red, format, args);
@@ -59,7 +69,7 @@ namespace Mono.Debugger.Cli.Logging
         [Conditional("DEBUG")]
         public static void WriteDebug(string format, params object[] args)
         {
-            Write(ConsoleColor.Yellow, format, args);
+            Write(ConsoleColor.Magenta, format, args);
         }
 
         [Conditional("DEBUG")]

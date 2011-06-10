@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Mono.Debugger.Cli.Debugging;
 using Mono.Debugger.Cli.Logging;
 
@@ -66,6 +67,9 @@ namespace Mono.Debugger.Cli.Commands
                 var reader = SoftDebugger.Session.GetSourceReader(fileName);
                 if (reader != null)
                 {
+                    if (File.GetLastWriteTime(fileName) > SoftDebugger.CurrentExecutable.LastWriteTime)
+                        Logger.WriteWarningLine("Source file {0} is newer than the debugged executable!", fileName);
+
                     var low = hasArgs ? lowerLines : line - 5;
                     if (low < 0)
                         low = 0;

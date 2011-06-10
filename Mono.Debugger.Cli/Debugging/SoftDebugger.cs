@@ -28,6 +28,8 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static SoftDebuggerCliSession Session { get; set; }
 
+        public static FileInfo CurrentExecutable { get; private set; }
+
         public static BacktraceState Backtrace { get; private set; }
 
         public static string WorkingDirectory { get; set; }
@@ -71,6 +73,7 @@ namespace Mono.Debugger.Cli.Debugging
             {
                 var str = string.Format("[Mono] {0}", text);
 
+                // The strings we get already have a line feed.
                 if (isStdErr)
                     Logger.WriteError(str);
                 else
@@ -166,6 +169,7 @@ namespace Mono.Debugger.Cli.Debugging
             {
                 EvaluationOptions = EvaluationOptions.DefaultOptions,
             });
+            CurrentExecutable = new FileInfo(path);
         }
 
         public static void Pause()
@@ -198,6 +202,7 @@ namespace Mono.Debugger.Cli.Debugging
             _isDoomed = false;
 
             Session = null;
+            CurrentExecutable = null;
         }
     }
 }
