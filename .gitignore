@@ -1,11 +1,25 @@
+# User configuration files.
 *.opensdf
 *.sdf
 *.suo
 *.user
 *.userprefs
-*.orig
 *.pidb
-*ReSharper*
 
+# Autotools-generated files.
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache/*
+config.*
+configure
+install-sh
+missing
+Mono.Debugger.Cli/sdb-cli
+
+# Build output.
 */bin/*
 */obj/*
+
+# Other files.
+*.orig
