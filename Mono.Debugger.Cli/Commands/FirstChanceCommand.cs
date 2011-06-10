@@ -14,7 +14,7 @@ namespace Mono.Debugger.Cli.Commands
 
         public string Description
         {
-            get { return "Enables/disables catching of first-chance exceptions."; }
+            get { return "Sets/displays whether we're catching first-chance exceptions."; }
         }
 
         public IEnumerable<string> Arguments
