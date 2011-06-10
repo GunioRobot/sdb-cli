@@ -26,6 +26,7 @@ namespace Mono.Debugger.Cli
                 new StartCommand(),
                 new PauseCommand(),
                 new ContinueCommand(),
+                new StepCommand(),
                 new StopCommand(),
                 new BreakpointCommand(),
                 new FirstChanceCommand(),

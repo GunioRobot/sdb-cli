@@ -93,7 +93,8 @@ FILES = \
 	Debugging/BacktraceState.cs \
 	Commands/CurrentDirectoryCommand.cs \
 	Commands/PauseCommand.cs \
-	Extensions.cs 
+	Extensions.cs \
+	Commands/StepCommand.cs 
 
 DATA_FILES = 
 
