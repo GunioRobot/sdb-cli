@@ -49,7 +49,7 @@ namespace Mono.Debugger.Cli.Debugging
             WorkingDirectory = Environment.CurrentDirectory;
         }
 
-        private static void InitializeSession()
+        public static void InitializeSession()
         {
             Session = new SoftDebuggerCliSession
             {

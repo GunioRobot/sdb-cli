@@ -94,7 +94,8 @@ FILES = \
 	Commands/CurrentDirectoryCommand.cs \
 	Commands/PauseCommand.cs \
 	Extensions.cs \
-	Commands/StepCommand.cs 
+	Commands/StepCommand.cs \
+	Commands/InitializeCommand.cs 
 
 DATA_FILES = 
 
