@@ -98,15 +98,12 @@ namespace Mono.Debugger.Cli.Debugging
                     ExceptionHandler(sender, e, true);
             };
 
-            Session.BreakpointTraceHandler = (be, trace) =>
+            Session.TargetHitBreakpoint += (sender, e) =>
             {
-            	Logger.WriteInfoLine("Breakpoint trace: {0} {0}", be, trace);
-            };
+                _isPaused = true;
 
-            Session.CustomBreakEventHitHandler += (actionId, be) =>
-            {
-                Logger.WriteInfoLine("Custom break event: {0} {1}", actionId, be);
-                return true;
+                var bp = (Breakpoint)e.BreakEvent;
+                Logger.WriteErrorLine("Breakpoint hit: {0}:{1}", bp.FileName, bp.Line);
             };
         }
 
