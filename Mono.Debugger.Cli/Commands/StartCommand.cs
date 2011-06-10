@@ -30,7 +30,7 @@ namespace Mono.Debugger.Cli.Commands
             var path = args.NextString();
             var session = SoftDebugger.Session;
 
-            if (session != null)
+            if (session != null && session.IsRunning)
             {
                 Logger.WriteErrorLine("A process is already running.");
                 return;

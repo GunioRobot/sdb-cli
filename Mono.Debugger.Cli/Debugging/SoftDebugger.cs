@@ -44,6 +44,8 @@ namespace Mono.Debugger.Cli.Debugging
 
         static SoftDebugger()
         {
+            InitializeSession();
+
             WorkingDirectory = Environment.CurrentDirectory;
         }
 
