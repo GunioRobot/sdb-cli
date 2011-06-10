@@ -30,11 +30,10 @@ namespace Mono.Debugger.Cli.Commands
             var path = args.NextString();
             var session = SoftDebugger.Session;
 
-            if (session != null && session.IsRunning)
+            if (session != null)
             {
-                // TODO: Display the actual process name (not Mono) somehow...
                 var proc = SoftDebugger.Session.VirtualMachine.Process;
-                Logger.WriteErrorLine("A process ({0}: {1}) is already running!", proc.Id, proc.ProcessName);
+                Logger.WriteErrorLine("A process is already running.");
                 return;
             }
 

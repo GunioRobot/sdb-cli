@@ -84,6 +84,6 @@ namespace Mono.Debugger.Cli.Commands
             }
         }
 
-        private Dictionary<string, StreamReader> _fileReaderCache = new Dictionary<string, StreamReader>();
+        private readonly Dictionary<string, StreamReader> _fileReaderCache = new Dictionary<string, StreamReader>();
     }
 }

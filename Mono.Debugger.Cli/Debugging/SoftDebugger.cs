@@ -36,6 +36,8 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static bool IsPaused { get; private set; }
 
+        public static bool CatchFirstChanceExceptions { get; set; }
+
         static SoftDebugger()
         {
             InitializeSession();
@@ -85,7 +87,7 @@ namespace Mono.Debugger.Cli.Debugging
 
             Session.TargetUnhandledException += ExceptionHandler;
 
-            Session.TargetExceptionThrown += ExceptionHandler;
+            Session.TargetExceptionThrown += UnhandledExceptionHandler;
 
             Session.BreakpointTraceHandler = (be, trace) =>
             {
@@ -107,9 +109,15 @@ namespace Mono.Debugger.Cli.Debugging
 
             IsPaused = true;
             CurrentBacktrace = e.Backtrace;
-            CurrentStackFrame = CurrentBacktrace.GetFrame(CurrentBacktrace.FrameCount - 1);
+            CurrentStackFrame = CurrentBacktrace.GetFrame(e.Backtrace.FrameCount - 1);
 
             ExceptionPrinter.Print(thread, ex);
+        }
+
+        private static void UnhandledExceptionHandler(object sender, TargetEventArgs e)
+        {
+            if (CatchFirstChanceExceptions)
+                ExceptionHandler(sender, e);
         }
 
         public static void Start(string path, string args)
@@ -139,8 +147,8 @@ namespace Mono.Debugger.Cli.Debugging
                 Logger.WriteErrorLine("No valid runtime found.");
                 return;
             }
-            else
-                Logger.WriteInfoLine("Using runtime: {0}", runtimePath);
+
+            Logger.WriteInfoLine("Using runtime: {0}", runtimePath);
 
             Session.Run(new SoftDebuggerStartInfo(runtimePath, new Dictionary<string, string>())
             {
@@ -153,8 +161,19 @@ namespace Mono.Debugger.Cli.Debugging
             });
         }
 
+        public static void Continue()
+        {
+            CurrentBacktrace = null;
+            CurrentStackFrame = null;
+
+            Session.Continue();
+        }
+
         public static void Stop()
         {
+            CurrentBacktrace = null;
+            CurrentStackFrame = null;
+
             if (Session.IsRunning || IsPaused)
                 Session.Exit();
 

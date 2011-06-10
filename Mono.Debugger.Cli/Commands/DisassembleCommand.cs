@@ -22,7 +22,7 @@ namespace Mono.Debugger.Cli.Commands
             get { return Argument.None(); }
         }
 
-        public void Execute (CommandArguments args)
+        public void Execute(CommandArguments args)
         {
             var frame = SoftDebugger.CurrentStackFrame;
 
@@ -36,7 +36,7 @@ namespace Mono.Debugger.Cli.Commands
 
             foreach (var line in disasm)
                 if (!line.IsOutOfRange)
-                    Logger.WriteInfoLine("0x{0}:\t{1}", line.Address.ToString(Environment.Is64BitProcess ? "X8" : "X4"), line.Code);
+                    Logger.WriteInfoLine("{0}:\t{1}", line.Address.ToString(Environment.Is64BitProcess ? "X8" : "X4"), line.Code);
         }
     }
 }

@@ -29,8 +29,8 @@ namespace Mono.Debugger.Cli.Commands
                 return;
             }
 
-            Logger.WriteInfoLine ("Process stopped.");
             SoftDebugger.Stop();
+            Logger.WriteInfoLine("Process stopped.");
         }
     }
 }
