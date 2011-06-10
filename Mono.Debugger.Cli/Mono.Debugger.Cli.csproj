@@ -119,4 +119,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Deployment.LinuxDeployData scriptName="sdb-cli" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>
