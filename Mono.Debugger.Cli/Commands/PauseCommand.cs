@@ -5,16 +5,16 @@ using Mono.Debugger.Cli.Logging;
 
 namespace Mono.Debugger.Cli.Commands
 {
-    public sealed class ContinueCommand : ICommand
+    public sealed class PauseCommand : ICommand
     {
         public string Name
         {
-            get { return "Continue"; }
+            get { return "Pause"; }
         }
 
         public string Description
         {
-            get { return "Continues the debuggee process."; }
+            get { return "Pauses the debuggee process."; }
         }
 
         public IEnumerable<string> Arguments
@@ -38,7 +38,7 @@ namespace Mono.Debugger.Cli.Commands
                 return;
             }
 
-            SoftDebugger.Continue();
+            SoftDebugger.Pause();
         }
     }
 }

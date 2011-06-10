@@ -11,12 +11,12 @@ namespace Mono.Debugger.Cli.Commands
     {
         public string Name
         {
-            get { return "Breakpoint"; }
+            get { return "BP"; }
         }
 
         public string Description
         {
-            get { return "Performs various operations surrounding breakpoints."; }
+            get { return "Creates/removes/ breakpoints."; }
         }
 
         public IEnumerable<string> Arguments
@@ -24,8 +24,7 @@ namespace Mono.Debugger.Cli.Commands
             get
             {
                 yield return Argument.Required("Add|Delete|Clear");
-                yield return Argument.Optional("FileName");
-                yield return Argument.Optional("Line");
+                yield return Argument.Optional("FileName", "Line");
             }
         }
 

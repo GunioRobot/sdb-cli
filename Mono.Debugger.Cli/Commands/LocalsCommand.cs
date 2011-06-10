@@ -13,7 +13,7 @@ namespace Mono.Debugger.Cli.Commands
 
         public string Description
         {
-            get { return "Print local variables."; }
+            get { return "Prints local variables."; }
         }
 
         public IEnumerable<string> Arguments
@@ -23,7 +23,15 @@ namespace Mono.Debugger.Cli.Commands
 
         public void Execute(CommandArguments args)
         {
-            var frame = SoftDebugger.CurrentStackFrame;
+            var backtrace = SoftDebugger.Backtrace;
+
+            if (backtrace == null)
+            {
+                Logger.WriteErrorLine("No backtrace available.");
+                return;
+            }
+
+            var frame = backtrace.CurrentStackFrame;
 
             if (frame == null)
             {

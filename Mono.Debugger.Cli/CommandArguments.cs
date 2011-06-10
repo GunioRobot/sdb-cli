@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Mono.Debugger.Cli
 {
@@ -7,15 +8,28 @@ namespace Mono.Debugger.Cli
     {
         public CommandArguments(IEnumerable<string> args)
         {
+            _args = args;
             _enum = args.GetEnumerator();
         }
 
+        private readonly IEnumerable<string> _args;
+
         private readonly IEnumerator<string> _enum;
 
-        public bool NextBoolean()
+        public bool HasArguments
+        {
+            get { return _args.Count() > 0; }
+        }
+
+        public bool NextBoolean(bool? def = null)
         {
             if (!_enum.MoveNext())
+            {
+                if (def != null)
+                    return (bool)def;
+
                 throw MissingArgument();
+            }
 
             bool value;
             if (bool.TryParse(_enum.Current, out value))

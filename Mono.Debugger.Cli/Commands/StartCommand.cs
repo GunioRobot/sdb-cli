@@ -32,7 +32,6 @@ namespace Mono.Debugger.Cli.Commands
 
             if (session != null)
             {
-                var proc = SoftDebugger.Session.VirtualMachine.Process;
                 Logger.WriteErrorLine("A process is already running.");
                 return;
             }

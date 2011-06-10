@@ -36,6 +36,16 @@ namespace Mono.Debugger.Cli.Logging
             WriteInfo(string.Format("{0}{1}", format, Environment.NewLine), args);
         }
 
+        public static void WriteEmphasis(string format, params object[] args)
+        {
+            Write(ConsoleColor.Cyan, format, args);
+        }
+
+        public static void WriteEmphasisLine(string format, params object[] args)
+        {
+            WriteEmphasis(string.Format("{0}{1}", format, Environment.NewLine), args);
+        }
+
         public static void WriteError(string format, params object[] args)
         {
             Write(ConsoleColor.Red, format, args);

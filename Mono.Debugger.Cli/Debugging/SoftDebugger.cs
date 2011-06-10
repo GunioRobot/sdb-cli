@@ -28,20 +28,20 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static SoftDebuggerCliSession Session { get; set; }
 
-        public static Backtrace CurrentBacktrace { get; private set; }
-
-        public static Mono.Debugging.Client.StackFrame CurrentStackFrame { get; set; }
+        public static BacktraceState Backtrace { get; private set; }
 
         public static string WorkingDirectory { get; set; }
 
-        public static bool IsPaused { get; private set; }
-
         public static bool CatchFirstChanceExceptions { get; set; }
+
+        private static bool _isPaused;
+
+        private static bool _isExcepted;
+
+        private static bool _isDoomed;
 
         static SoftDebugger()
         {
-            InitializeSession();
-
             WorkingDirectory = Environment.CurrentDirectory;
         }
 
@@ -85,9 +85,13 @@ namespace Mono.Debugger.Cli.Debugging
                     Console.Write(text);
             };
 
-            Session.TargetUnhandledException += ExceptionHandler;
+            Session.TargetUnhandledException += (sender, e) => ExceptionHandler(sender, e, false);
 
-            Session.TargetExceptionThrown += UnhandledExceptionHandler;
+            Session.TargetExceptionThrown += (sender, e) =>
+            {
+                if (CatchFirstChanceExceptions)
+                    ExceptionHandler(sender, e, true);
+            };
 
             Session.BreakpointTraceHandler = (be, trace) =>
             {
@@ -101,23 +105,24 @@ namespace Mono.Debugger.Cli.Debugging
             };
         }
 
-        private static void ExceptionHandler(object sender, TargetEventArgs e)
+        private static void ExceptionHandler(object sender, TargetEventArgs e, bool firstChance)
         {
+            var bt = e.Backtrace;
+
+            Backtrace = new BacktraceState(bt)
+            {
+                CurrentStackFrame = bt.GetFrame(0),
+                CurrentStackFrameId = 0,
+            };
+
+            _isPaused = true;
+            _isExcepted = !firstChance;
+
             var session = (SoftDebuggerSession)sender;
             var thread = session.VirtualMachine.GetThreads().Single(x => x.Id == e.Thread.Id);
             var ex = session.GetExceptionObject(thread);
 
-            IsPaused = true;
-            CurrentBacktrace = e.Backtrace;
-            CurrentStackFrame = CurrentBacktrace.GetFrame(e.Backtrace.FrameCount - 1);
-
             ExceptionPrinter.Print(thread, ex);
-        }
-
-        private static void UnhandledExceptionHandler(object sender, TargetEventArgs e)
-        {
-            if (CatchFirstChanceExceptions)
-                ExceptionHandler(sender, e);
         }
 
         public static void Start(string path, string args)
@@ -126,9 +131,11 @@ namespace Mono.Debugger.Cli.Debugging
                 InitializeSession();
 
             string runtimePath = null;
+            string fullPath = null;
+
             foreach (var prefix in Configuration.RuntimePaths)
             {
-                var fullPath = Path.Combine(prefix, "bin");
+                fullPath = Path.Combine(prefix, "bin");
 
                 if (Environment.OSVersion.Platform != PlatformID.Win32NT)
                     fullPath = Path.Combine(fullPath, "mono");
@@ -148,7 +155,7 @@ namespace Mono.Debugger.Cli.Debugging
                 return;
             }
 
-            Logger.WriteInfoLine("Using runtime: {0}", runtimePath);
+            Logger.WriteInfoLine("Using runtime: {0}", fullPath);
 
             Session.Run(new SoftDebuggerStartInfo(runtimePath, new Dictionary<string, string>())
             {
@@ -161,23 +168,35 @@ namespace Mono.Debugger.Cli.Debugging
             });
         }
 
+        public static void Pause()
+        {
+            _isPaused = true;
+
+            Session.Stop();
+        }
+
         public static void Continue()
         {
-            CurrentBacktrace = null;
-            CurrentStackFrame = null;
+            Backtrace = null;
+            _isPaused = false;
 
             Session.Continue();
+
+            _isDoomed = _isExcepted;
         }
 
         public static void Stop()
         {
-            CurrentBacktrace = null;
-            CurrentStackFrame = null;
-
-            if (Session.IsRunning || IsPaused)
+            if (!_isDoomed && (Session.IsRunning || _isPaused))
                 Session.Exit();
 
             //Session.Dispose();
+
+            Backtrace = null;
+            _isPaused = false;
+            _isExcepted = false;
+            _isDoomed = false;
+
             Session = null;
         }
     }

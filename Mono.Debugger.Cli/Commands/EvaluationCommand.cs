@@ -25,7 +25,16 @@ namespace Mono.Debugger.Cli.Commands
         public void Execute(CommandArguments args)
         {
             var expr = args.NextString();
-            var frame = SoftDebugger.CurrentStackFrame;
+
+            var backtrace = SoftDebugger.Backtrace;
+
+            if (backtrace == null)
+            {
+                Logger.WriteErrorLine("No backtrace available.");
+                return;
+            }
+
+            var frame = backtrace.CurrentStackFrame;
 
             if (frame == null)
             {

@@ -15,24 +15,31 @@ namespace Mono.Debugger.Cli.Commands
 
         public string Description
         {
-            get { return "Switches the current stack frame."; }
+            get { return "Switches/shows the current stack frame."; }
         }
 
         public IEnumerable<string> Arguments
         {
-            get { yield return Argument.Required("FrameId"); }
+            get { yield return Argument.Optional("FrameId"); }
         }
 
         public void Execute(CommandArguments args)
         {
-            var frame = args.NextInt32();
-            var bt = SoftDebugger.CurrentBacktrace;
+            var hasArgs = args.HasArguments;
+            var frame = 0;
 
-            if (bt == null)
+            if (hasArgs)
+                frame = args.NextInt32();
+
+            var backtrace = SoftDebugger.Backtrace;
+
+            if (backtrace == null)
             {
                 Logger.WriteErrorLine("No backtrace is available.");
                 return;
             }
+
+            var bt = backtrace.CurrentBacktrace;
 
             if (frame < 0 || frame > bt.FrameCount - 1)
             {
@@ -40,8 +47,14 @@ namespace Mono.Debugger.Cli.Commands
                 return;
             }
 
-            SoftDebugger.CurrentStackFrame = bt.GetFrame(frame);
-            Logger.WriteInfoLine("Switched to frame: {0}", frame);
+            if (hasArgs)
+            {
+                backtrace.CurrentStackFrame = bt.GetFrame(frame);
+                backtrace.CurrentStackFrameId = frame;
+                Logger.WriteInfoLine("Switched to frame: {0}", frame);
+            }
+            else
+                Logger.WriteInfoLine("Current frame: {0}", backtrace.CurrentStackFrameId);
         }
     }
 }

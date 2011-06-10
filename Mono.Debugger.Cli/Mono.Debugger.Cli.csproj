@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -81,7 +81,6 @@
     <Compile Include="Commands\ContinueCommand.cs" />
     <Compile Include="Commands\ExitCommand.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
-    <Compile Include="Commands\SetDirectoryCommand.cs" />
     <Compile Include="Commands\StartCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Debugging\ExceptionPrinter.cs" />
@@ -91,7 +90,6 @@
     <Compile Include="Logging\LoggerProxy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Commands\GetDirectoryCommand.cs" />
     <Compile Include="Commands\BacktraceCommand.cs" />
     <Compile Include="Commands\FrameCommand.cs" />
     <Compile Include="Commands\DisassembleCommand.cs" />
@@ -101,6 +99,12 @@
     <Compile Include="Debugging\SoftDebuggerCliSession.cs" />
     <Compile Include="Commands\WatchCommand.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Commands\FirstChanceCommand.cs" />
+    <Compile Include="Commands\SourceCommand.cs" />
+    <Compile Include="Debugging\BacktraceState.cs" />
+    <Compile Include="Commands\CurrentDirectoryCommand.cs" />
+    <Compile Include="Commands\PauseCommand.cs" />
+    <Compile Include="Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Mono.Debugger.Cli.snk" />

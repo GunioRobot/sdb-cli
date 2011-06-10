@@ -58,7 +58,15 @@ namespace Mono.Debugger.Cli.Commands
                     Logger.WriteInfoLine("Cleared all watches.");
                     return;
                 case "":
-                    var frame = SoftDebugger.CurrentStackFrame;
+                    var backtrace = SoftDebugger.Backtrace;
+
+                    if (backtrace == null)
+                    {
+                        Logger.WriteErrorLine("No backtrace available.");
+                        return;
+                    }
+
+                    var frame = backtrace.CurrentStackFrame;
 
                     if (frame == null)
                     {

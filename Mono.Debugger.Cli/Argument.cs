@@ -15,6 +15,11 @@ namespace Mono.Debugger.Cli
             return "[" + name + "]";
         }
 
+        public static string Optional(string name1, string name2)
+        {
+            return "[" + name1 + " " + name2 + "]";
+        }
+
         public static IEnumerable<string> None()
         {
             return Enumerable.Empty<string>();
