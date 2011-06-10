@@ -1,0 +1,10 @@
+Installing sdb-cli
+==================
+
+To install, simply run:
+
+  $ ./autogen.sh
+  $ make
+  $ make install
+
+This will configure the project, compile it, and install it.
