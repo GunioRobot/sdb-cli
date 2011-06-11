@@ -21,7 +21,7 @@ namespace Mono.Debugger.Cli.Commands
 
         public string Arguments
         {
-            get { return "[Add <FileName> <Line>|Set <FrameId> <Line>|Delete <FileName> <Line>|Clear]"; }
+            get { return "[Add <FileName> <Line>|Set <FrameId> <Line>|Del <FileName> <Line>|Clear]"; }
         }
 
         public void Execute(CommandArguments args)
@@ -81,7 +81,7 @@ namespace Mono.Debugger.Cli.Commands
 
                     Logger.WriteInfoLine("Set breakpoint: {0}:{1}");
                     return;
-                case "delete":
+                case "del":
                     var delFile = args.NextString();
                     var delLine = args.NextInt32();
 

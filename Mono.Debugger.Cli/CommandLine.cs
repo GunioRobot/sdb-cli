@@ -35,6 +35,7 @@ namespace Mono.Debugger.Cli
                 new StepCommand(),
                 new StopCommand(),
                 new BreakpointCommand(),
+                new CatchpointCommand(),
                 new FirstChanceCommand(),
                 new BacktraceCommand(),
                 new FrameCommand(),

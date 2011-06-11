@@ -65,6 +65,7 @@ namespace Mono.Debugger.Cli.Debugging
             InitializeSession();
 
             WorkingDirectory = Environment.CurrentDirectory;
+            CatchFirstChanceExceptions = true;
 
             Console.CancelKeyPress += (sender, e) =>
             {

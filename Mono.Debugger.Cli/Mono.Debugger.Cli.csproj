@@ -117,6 +117,7 @@
     <Compile Include="Debugging\BacktraceInfo.cs" />
     <Compile Include="Commands\ThreadCommand.cs" />
     <Compile Include="Addins\AddinManager.cs" />
+    <Compile Include="Commands\CatchpointCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Mono.Debugger.Cli.snk" />

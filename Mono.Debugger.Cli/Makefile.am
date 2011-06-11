@@ -97,7 +97,8 @@ FILES = \
 	Debugging/DebuggerState.cs \
 	Debugging/BacktraceInfo.cs \
 	Commands/ThreadCommand.cs \
-	Addins/AddinManager.cs 
+	Addins/AddinManager.cs \
+	Commands/CatchpointCommand.cs 
 
 DATA_FILES = 
 
@@ -106,6 +107,7 @@ RESOURCES =
 EXTRAS = \
 	Mono.Debugger.Cli.snk \
 	App.config \
+	Addins \
 	sdb-cli.in 
 
 REFERENCES =  \

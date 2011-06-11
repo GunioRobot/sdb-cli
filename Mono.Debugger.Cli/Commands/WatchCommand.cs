@@ -19,7 +19,7 @@ namespace Mono.Debugger.Cli.Commands
 
         public string Arguments
         {
-            get { return "[Add <Expr>|Delete <WatchId>|Clear"; }
+            get { return "[Add <Expr>|Del <WatchId>|Clear"; }
         }
 
         public void Execute(CommandArguments args)
@@ -42,7 +42,7 @@ namespace Mono.Debugger.Cli.Commands
 
                     Logger.WriteInfoLine("Added watch {0}: {1}", id, expr);
                     return;
-                case "delete":
+                case "del":
                     var delId = args.NextInt64();
                     session.Watches.Remove(delId);
 
