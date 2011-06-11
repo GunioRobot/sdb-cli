@@ -23,7 +23,7 @@ namespace Mono.Debugger.Cli.Commands
         {
             get
             {
-                yield return Argument.Required("Add|Delete|Clear");
+                yield return Argument.Required("Add|Set|Delete|Clear");
                 yield return Argument.Optional("FileName", "Line");
             }
         }
@@ -46,13 +46,54 @@ namespace Mono.Debugger.Cli.Commands
                     var file = args.NextString();
                     var line = args.NextInt32();
 
+                    if (line < 1)
+                    {
+                        Logger.WriteErrorLine("Invalid line number.");
+                        return;
+                    }
+
                     session.Breakpoints.Add(file, line, true);
 
                     Logger.WriteInfoLine("Added breakpoint: {0}:{1}", file, line);
                     return;
+                case "set":
+                    var frame = args.NextInt32();
+                    var setLine = args.NextInt32();
+
+                    var bt = SoftDebugger.Backtrace;
+
+                    if (bt == null)
+                    {
+                        Logger.WriteErrorLine("No backtrace available.");
+                        return;
+                    }
+
+                    if (frame < 0 || frame > bt.CurrentBacktrace.Count - 1)
+                    {
+                        Logger.WriteErrorLine("Invalid stack frame.");
+                        return;
+                    }
+
+                    if (setLine < 1)
+                    {
+                        Logger.WriteErrorLine("Invalid line number.");
+                        return;
+                    }
+
+                    var fileName = bt.CurrentBacktrace[frame].SourceLocation.FileName;
+                    session.Breakpoints.Add(fileName, setLine);
+
+                    Logger.WriteInfoLine("Set breakpoint: {0}:{1}");
+                    return;
                 case "delete":
                     var delFile = args.NextString();
                     var delLine = args.NextInt32();
+
+                    if (delLine < 1)
+                    {
+                        Logger.WriteErrorLine("Invalid line number.");
+                        return;
+                    }
 
                     session.Breakpoints.Remove(delFile, delLine);
 
