@@ -84,6 +84,8 @@ namespace Mono.Debugger.Cli.Commands
                 }
             }
 
+            Logger.WriteInfoLine("Threads:");
+
             foreach (var thread in threads)
             {
                 var str = string.Format("[{0}] {1}: {2}", thread.Id, thread.Name, thread.Location);

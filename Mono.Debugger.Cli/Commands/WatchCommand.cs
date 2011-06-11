@@ -74,6 +74,8 @@ namespace Mono.Debugger.Cli.Commands
                         return;
                     }
 
+                    Logger.WriteInfoLine("Watches:");
+
                     foreach (var watch in session.Watches)
                     {
                         var evalExpr = watch.Value;

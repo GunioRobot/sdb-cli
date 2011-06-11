@@ -16,7 +16,7 @@ namespace Mono.Debugger.Cli.Commands
 
         public string Description
         {
-            get { return "Creates/removes/ breakpoints."; }
+            get { return "Creates/removes/lists breakpoints."; }
         }
 
         public IEnumerable<string> Arguments
@@ -30,7 +30,7 @@ namespace Mono.Debugger.Cli.Commands
 
         public void Execute(CommandArguments args)
         {
-            var op = args.NextString();
+            var op = args.NextString(string.Empty);
 
             if (SoftDebugger.State == DebuggerState.Null)
             {
@@ -62,6 +62,12 @@ namespace Mono.Debugger.Cli.Commands
                     session.Breakpoints.ClearBreakpoints();
 
                     Logger.WriteInfoLine("Cleared all breakpoints.");
+                    return;
+                case "":
+                    Logger.WriteInfoLine("Breakpoints:");
+
+                    foreach (var bp in session.Breakpoints.GetBreakpoints())
+                        Logger.WriteInfoLine("{0}:{1}", bp.FileName, bp.Line);
                     return;
             }
 
