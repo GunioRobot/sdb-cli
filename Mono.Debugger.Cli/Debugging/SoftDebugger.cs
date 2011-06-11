@@ -154,32 +154,41 @@ namespace Mono.Debugger.Cli.Debugging
             if (Session == null)
                 InitializeSession();
 
+            var rtPaths = Configuration.RuntimePaths;
             string runtimePath = null;
             string fullPath = null;
 
-            foreach (var prefix in Configuration.RuntimePaths)
+            if (rtPaths != null)
             {
-                fullPath = Path.Combine(prefix, "bin");
-
-                if (Environment.OSVersion.Platform != PlatformID.Win32NT)
-                    fullPath = Path.Combine(fullPath, "mono");
-                else
-                    fullPath = Path.Combine(fullPath, "mono.exe");
-
-                if (File.Exists(fullPath))
+                foreach (var prefix in Configuration.RuntimePaths)
                 {
-                    runtimePath = prefix;
-                    break;
-                }
-            }
+                    fullPath = Path.Combine(prefix, "bin");
 
-            if (runtimePath == null)
+                    if (Environment.OSVersion.Platform != PlatformID.Win32NT)
+                        fullPath = Path.Combine(fullPath, "mono");
+                    else
+                        fullPath = Path.Combine(fullPath, "mono.exe");
+
+                    if (File.Exists(fullPath))
+                    {
+                        runtimePath = prefix;
+                        break;
+                    }
+                }
+
+                if (runtimePath == null)
+                {
+                    Logger.WriteErrorLine("No valid runtime found.");
+                    return;
+                }
+
+                Logger.WriteInfoLine("Using runtime: {0}", fullPath);
+            }
+            else
             {
-                Logger.WriteErrorLine("No valid runtime found.");
+                Logger.WriteErrorLine("Failed to load configuration.");
                 return;
             }
-
-            Logger.WriteInfoLine("Using runtime: {0}", fullPath);
 
             Session.Run(new SoftDebuggerStartInfo(runtimePath, new Dictionary<string, string>())
             {
