@@ -62,10 +62,7 @@ namespace Mono.Debugger.Cli.Commands
                 if (hasSource)
                     location = string.Format("{0}:{1}{2}", fileName, loc.Line, loc.Column == -1 ? string.Empty : "," + loc.Column);
 
-                // TODO: Build the method name.
-                var method = loc.MethodName;
-
-                var str = string.Format("[{0}] {1}: {2}", i, location, method);
+                var str = string.Format("[{0}] {1}: {2}", i, location, frame.AddressSpace);
                 if (i == backtrace.CurrentStackFrameId)
                     Logger.WriteEmphasisLine("{0}", str);
                 else

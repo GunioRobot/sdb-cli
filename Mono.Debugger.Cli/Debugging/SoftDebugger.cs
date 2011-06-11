@@ -142,7 +142,7 @@ namespace Mono.Debugger.Cli.Debugging
             _isPaused = true;
             _isExcepted = !firstChance;
 
-            var session = (SoftDebuggerSession)sender;
+            var session = (SoftDebuggerCliSession)sender;
             var thread = session.VirtualMachine.GetThreads().Single(x => x.Id == e.Thread.Id);
             var ex = session.GetExceptionObject(thread);
 
