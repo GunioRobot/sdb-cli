@@ -97,7 +97,8 @@ FILES = \
 	Commands/InitializeCommand.cs \
 	Debugging/DebuggerState.cs \
 	Debugging/BacktraceInfo.cs \
-	Commands/ThreadCommand.cs 
+	Commands/ThreadCommand.cs \
+	Addins/AddinManager.cs 
 
 DATA_FILES = 
 

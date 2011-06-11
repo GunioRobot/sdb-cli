@@ -117,6 +117,7 @@
     <Compile Include="Debugging\DebuggerState.cs" />
     <Compile Include="Debugging\BacktraceInfo.cs" />
     <Compile Include="Commands\ThreadCommand.cs" />
+    <Compile Include="Addins\AddinManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Mono.Debugger.Cli.snk" />
@@ -138,4 +139,7 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Addins\" />
+  </ItemGroup>
 </Project>

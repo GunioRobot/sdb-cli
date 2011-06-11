@@ -15,7 +15,8 @@ namespace Mono.Debugger.Cli
             {
                 _cfg = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location);
 
-                RuntimePaths = _cfg.AppSettings.Settings["runtimePaths"].Value.Split(';');
+                RuntimePathPrefixes = _cfg.AppSettings.Settings["runtimePathPrefixes"].Value.Split(';');
+                AddinAssemblyPaths = _cfg.AppSettings.Settings["addinAssemblyPaths"].Value.Split(';');
             }
             catch (Exception ex)
             {
@@ -23,6 +24,8 @@ namespace Mono.Debugger.Cli
             }
         }
 
-        public static string[] RuntimePaths { get; set; }
+        public static string[] RuntimePathPrefixes { get; set; }
+
+        public static string[] AddinAssemblyPaths { get; set; }
     }
 }

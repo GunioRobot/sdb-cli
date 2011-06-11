@@ -154,13 +154,13 @@ namespace Mono.Debugger.Cli.Debugging
             if (Session == null)
                 InitializeSession();
 
-            var rtPaths = Configuration.RuntimePaths;
+            var rtPaths = Configuration.RuntimePathPrefixes;
             string runtimePath = null;
             string fullPath = null;
 
             if (rtPaths != null)
             {
-                foreach (var prefix in Configuration.RuntimePaths)
+                foreach (var prefix in rtPaths)
                 {
                     fullPath = Path.Combine(prefix, "bin");
 
