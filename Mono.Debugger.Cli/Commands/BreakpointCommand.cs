@@ -31,34 +31,32 @@ namespace Mono.Debugger.Cli.Commands
         public void Execute(CommandArguments args)
         {
             var op = args.NextString();
-            var session = SoftDebugger.Session;
 
-            if (session == null)
+            if (SoftDebugger.State == DebuggerState.Null)
             {
-                Logger.WriteErrorLine("No program loaded.");
+                Logger.WriteErrorLine("No session active.");
                 return;
             }
 
-            string file;
-            int line;
+            var session = SoftDebugger.Session;
 
             switch (op.ToLower())
             {
                 case "add":
-                    file = args.NextString();
-                    line = args.NextInt32();
+                    var file = args.NextString();
+                    var line = args.NextInt32();
 
                     session.Breakpoints.Add(file, line, true);
 
                     Logger.WriteInfoLine("Added breakpoint: {0}:{1}", file, line);
                     return;
                 case "delete":
-                    file = args.NextString();
-                    line = args.NextInt32();
+                    var delFile = args.NextString();
+                    var delLine = args.NextInt32();
 
-                    session.Breakpoints.Remove(file, line);
+                    session.Breakpoints.Remove(delFile, delLine);
 
-                    Logger.WriteInfoLine("Deleted breakpoint: {0}:{1}", file, line);
+                    Logger.WriteInfoLine("Deleted breakpoint: {0}:{1}", delFile, delLine);
                     return;
                 case "clear":
                     session.Breakpoints.ClearBreakpoints();

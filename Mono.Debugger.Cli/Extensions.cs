@@ -1,3 +1,4 @@
+using Mono.Debugger.Cli.Debugging;
 using Mono.Debugging.Client;
 
 namespace Mono.Debugger.Cli
@@ -7,6 +8,11 @@ namespace Mono.Debugger.Cli
         public static bool HasSource(this SourceLocation loc)
         {
             return loc.FileName != string.Empty && loc.Line != -1;
+        }
+
+        public static bool IsStarted(this DebuggerState state)
+        {
+            return state == DebuggerState.Running || state == DebuggerState.Paused;
         }
     }
 }

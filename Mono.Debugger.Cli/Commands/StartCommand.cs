@@ -28,11 +28,10 @@ namespace Mono.Debugger.Cli.Commands
         public void Execute(CommandArguments args)
         {
             var path = args.NextString();
-            var session = SoftDebugger.Session;
 
-            if (session != null && session.IsRunning)
+            if (SoftDebugger.State.IsStarted())
             {
-                Logger.WriteErrorLine("A process is already running.");
+                Logger.WriteErrorLine("A process is already active.");
                 return;
             }
 

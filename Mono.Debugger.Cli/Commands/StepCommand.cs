@@ -28,19 +28,26 @@ namespace Mono.Debugger.Cli.Commands
         public void Execute(CommandArguments args)
         {
             var op = args.NextString();
-            var session = SoftDebugger.Session;
 
-            if (session == null)
+            if (SoftDebugger.State == DebuggerState.Null)
+            {
+                Logger.WriteErrorLine("No session active.");
+                return;
+            }
+
+            if (SoftDebugger.State == DebuggerState.Initialized)
             {
                 Logger.WriteErrorLine("No process active.");
                 return;
             }
 
-            if (session.IsRunning)
+            if (SoftDebugger.State == DebuggerState.Running)
             {
                 Logger.WriteErrorLine("Process is running.");
                 return;
             }
+
+            var session = SoftDebugger.Session;
 
             switch (op.ToLower())
             {

@@ -3,9 +3,9 @@ using Mono.Debugging.Client;
 
 namespace Mono.Debugger.Cli.Debugging
 {
-    public sealed class BacktraceState
+    public sealed class BacktraceInfo
     {
-        public BacktraceState(Backtrace bt)
+        public BacktraceInfo(Backtrace bt)
         {
             CurrentBacktrace = bt;
         }
@@ -15,5 +15,11 @@ namespace Mono.Debugger.Cli.Debugging
         public StackFrame CurrentStackFrame { get; set; }
 
         public int CurrentStackFrameId { get; set; }
+
+        public void SetActiveFrame(int frameId)
+        {
+            CurrentStackFrame = CurrentBacktrace.GetFrame(frameId);
+            CurrentStackFrameId = frameId;
+        }
     }
 }

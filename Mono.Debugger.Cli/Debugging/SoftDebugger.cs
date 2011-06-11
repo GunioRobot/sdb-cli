@@ -28,9 +28,26 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static SoftDebuggerCliSession Session { get; set; }
 
+        public static DebuggerState State
+        {
+            get
+            {
+                if (Session == null)
+                    return DebuggerState.Null;
+
+                if (_isPaused)
+                    return DebuggerState.Paused;
+
+                if (Session.IsRunning)
+                    return DebuggerState.Running;
+
+                return DebuggerState.Initialized;
+            }
+        }
+
         public static FileInfo CurrentExecutable { get; private set; }
 
-        public static BacktraceState Backtrace { get; private set; }
+        public static BacktraceInfo Backtrace { get; private set; }
 
         public static string WorkingDirectory { get; set; }
 
@@ -111,7 +128,7 @@ namespace Mono.Debugger.Cli.Debugging
         {
             var bt = e.Backtrace;
 
-            Backtrace = new BacktraceState(bt)
+            Backtrace = new BacktraceInfo(bt)
             {
                 CurrentStackFrame = bt.GetFrame(0),
                 CurrentStackFrameId = 0,
@@ -190,7 +207,7 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static void Stop()
         {
-            if (!_isDoomed && (Session.IsRunning || _isPaused))
+            if (!_isDoomed && State.IsStarted())
                 Session.Exit();
 
             //Session.Dispose();

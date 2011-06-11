@@ -49,8 +49,7 @@ namespace Mono.Debugger.Cli.Commands
 
             if (hasArgs)
             {
-                backtrace.CurrentStackFrame = bt.GetFrame(frame);
-                backtrace.CurrentStackFrameId = frame;
+                backtrace.SetActiveFrame(frame);
                 Logger.WriteInfoLine("Switched to frame: {0}", frame);
             }
             else

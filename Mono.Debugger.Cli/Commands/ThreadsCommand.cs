@@ -1,20 +1,19 @@
-using System;
 using System.Collections.Generic;
 using Mono.Debugger.Cli.Debugging;
 using Mono.Debugger.Cli.Logging;
 
 namespace Mono.Debugger.Cli.Commands
 {
-    public sealed class PauseCommand : ICommand
+    public sealed class ThreadsCommand : ICommand
     {
         public string Name
         {
-            get { return "Pause"; }
+            get { return "Threads"; }
         }
 
         public string Description
         {
-            get { return "Pauses the debuggee process."; }
+            get { return "Lists all active threads."; }
         }
 
         public IEnumerable<string> Arguments
@@ -24,6 +23,8 @@ namespace Mono.Debugger.Cli.Commands
 
         public void Execute(CommandArguments args)
         {
+            var session = SoftDebugger.Session;
+
             if (SoftDebugger.State == DebuggerState.Null)
             {
                 Logger.WriteErrorLine("No session active.");
@@ -36,13 +37,10 @@ namespace Mono.Debugger.Cli.Commands
                 return;
             }
 
-            if (SoftDebugger.State == DebuggerState.Paused)
-            {
-                Logger.WriteErrorLine("Process is already paused.");
-                return;
-            }
+            var threads = session.VirtualMachine.GetThreads();
 
-            SoftDebugger.Pause();
+            foreach (var thread in threads)
+                Logger.WriteInfoLine("[{0}] {1}: {2}", thread.Id, thread.Name, thread.ThreadState);
         }
     }
 }

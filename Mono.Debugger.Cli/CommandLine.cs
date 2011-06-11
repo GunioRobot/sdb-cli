@@ -38,6 +38,7 @@ namespace Mono.Debugger.Cli
                 new LocalsCommand(),
                 new EvaluationCommand(),
                 new WatchCommand(),
+                new ThreadsCommand(),
             };
         }
 

@@ -101,12 +101,14 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Commands\FirstChanceCommand.cs" />
     <Compile Include="Commands\SourceCommand.cs" />
-    <Compile Include="Debugging\BacktraceState.cs" />
     <Compile Include="Commands\CurrentDirectoryCommand.cs" />
     <Compile Include="Commands\PauseCommand.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Commands\StepCommand.cs" />
     <Compile Include="Commands\InitializeCommand.cs" />
+    <Compile Include="Commands\ThreadsCommand.cs" />
+    <Compile Include="Debugging\DebuggerState.cs" />
+    <Compile Include="Debugging\BacktraceInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Mono.Debugger.Cli.snk" />

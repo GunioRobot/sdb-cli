@@ -23,7 +23,7 @@ namespace Mono.Debugger.Cli.Commands
 
         public void Execute(CommandArguments args)
         {
-            if (SoftDebugger.Session != null)
+            if (SoftDebugger.State != DebuggerState.Null)
             {
                 Logger.WriteErrorLine("A session is already active.");
                 return;

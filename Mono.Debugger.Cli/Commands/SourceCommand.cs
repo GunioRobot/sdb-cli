@@ -57,7 +57,6 @@ namespace Mono.Debugger.Cli.Commands
                 return;
             }
 
-            // TODO: Actual logic.
             var loc = frame.SourceLocation;
             var fileName = loc.FileName;
             var line = loc.Line;
