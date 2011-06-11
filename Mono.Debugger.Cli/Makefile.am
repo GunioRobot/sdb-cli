@@ -4,7 +4,7 @@ EXTRA_DIST =
 # Warning: This is an automatically generated file, do not edit!
 
 if ENABLE_DEBUG
-ASSEMBLY_COMPILER_COMMAND = mcs
+ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE" "-keyfile:Mono.Debugger.Cli.snk"
 ASSEMBLY = bin/Debug/sdb-cli.exe
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
@@ -24,7 +24,7 @@ MONO_DEBUGGING_SOFT_DLL_SOURCE=../Dependencies/Mono.Debugging.Soft.dll
 endif
 
 if ENABLE_RELEASE
-ASSEMBLY_COMPILER_COMMAND = mcs
+ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE" "-keyfile:Mono.Debugger.Cli.snk"
 ASSEMBLY = bin/Release/sdb-cli.exe
 ASSEMBLY_MDB = 
@@ -90,12 +90,14 @@ FILES = \
 	Configuration.cs \
 	Commands/FirstChanceCommand.cs \
 	Commands/SourceCommand.cs \
-	Debugging/BacktraceState.cs \
 	Commands/CurrentDirectoryCommand.cs \
 	Commands/PauseCommand.cs \
 	Extensions.cs \
 	Commands/StepCommand.cs \
-	Commands/InitializeCommand.cs 
+	Commands/InitializeCommand.cs \
+	Commands/ThreadsCommand.cs \
+	Debugging/DebuggerState.cs \
+	Debugging/BacktraceInfo.cs 
 
 DATA_FILES = 
 
