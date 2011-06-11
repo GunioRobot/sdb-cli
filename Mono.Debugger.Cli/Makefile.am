@@ -95,7 +95,7 @@ FILES = \
 	Extensions.cs \
 	Commands/StepCommand.cs \
 	Commands/InitializeCommand.cs \
-	Commands/ThreadsCommand.cs \
+	Commands/ThreadCommand.cs \
 	Debugging/DebuggerState.cs \
 	Debugging/BacktraceInfo.cs 
 

@@ -106,9 +106,9 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Commands\StepCommand.cs" />
     <Compile Include="Commands\InitializeCommand.cs" />
-    <Compile Include="Commands\ThreadsCommand.cs" />
     <Compile Include="Debugging\DebuggerState.cs" />
     <Compile Include="Debugging\BacktraceInfo.cs" />
+    <Compile Include="Commands\ThreadCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Mono.Debugger.Cli.snk" />

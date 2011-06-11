@@ -46,7 +46,7 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static FileInfo CurrentExecutable { get; private set; }
 
-        public static BacktraceInfo Backtrace { get; private set; }
+        public static BacktraceInfo Backtrace { get; set; }
 
         public static string WorkingDirectory { get; set; }
 
@@ -133,14 +133,11 @@ namespace Mono.Debugger.Cli.Debugging
             var bt = e.Backtrace;
             var list = new List<StackFrame>();
 
-            for (var i = 0; i < bt.FrameCount - 1; i++)
-                list.Add(bt.GetFrame(i));
+            for (var i = 0; i < bt.FrameCount; i++)
+                list.Add(bt.GetFrame(i - 1));
 
-            Backtrace = new BacktraceInfo(list)
-            {
-                CurrentStackFrame = bt.GetFrame(0),
-                CurrentStackFrameId = 0,
-            };
+            Backtrace = new BacktraceInfo(list);
+            Backtrace.SetActiveFrame(0);
 
             _isPaused = true;
             _isExcepted = !firstChance;

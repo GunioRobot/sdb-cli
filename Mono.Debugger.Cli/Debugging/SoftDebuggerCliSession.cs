@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
+using Mono.Debugging.Client;
 using Mono.Debugging.Soft;
 
 namespace Mono.Debugger.Cli.Debugging
@@ -12,6 +14,11 @@ namespace Mono.Debugger.Cli.Debugging
         public SortedDictionary<long, string> Watches { get; private set; }
 
         private readonly Dictionary<string, StreamReader> _sourceReaders = new Dictionary<string, StreamReader>();
+
+        public ProcessInfo ActiveProcess
+        {
+            get { return GetProcesses().Single(); }
+        }
 
         public long GenerateWatchId()
         {
