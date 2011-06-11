@@ -120,7 +120,12 @@ namespace Mono.Debugger.Cli.Debugging
                 _isPaused = true;
 
                 var bp = (Breakpoint)e.BreakEvent;
-                Logger.WriteErrorLine("Breakpoint hit: {0}:{1}", bp.FileName, bp.Line);
+                Logger.WriteEmphasisLine("Breakpoint hit: {0}:{1}", bp.FileName, bp.Line);
+            };
+
+            Session.TargetEvent += (sender, e) =>
+            {
+                Logger.WriteDebugLine("Event: {0}", e.Type);
             };
         }
 
