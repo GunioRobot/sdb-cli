@@ -95,9 +95,9 @@ FILES = \
 	Extensions.cs \
 	Commands/StepCommand.cs \
 	Commands/InitializeCommand.cs \
-	Commands/ThreadCommand.cs \
 	Debugging/DebuggerState.cs \
-	Debugging/BacktraceInfo.cs 
+	Debugging/BacktraceInfo.cs \
+	Commands/ThreadCommand.cs 
 
 DATA_FILES = 
 
@@ -116,7 +116,9 @@ REFERENCES =  \
 DLL_REFERENCES =  \
 	../Dependencies/Mono.Debugger.Soft.dll \
 	../Dependencies/Mono.Debugging.dll \
-	../Dependencies/Mono.Debugging.Soft.dll
+	../Dependencies/Mono.Debugging.Soft.dll \
+	../Dependencies/Mono.Cecil.dll \
+	../Dependencies/OldNRefactory.dll
 
 CLEANFILES = $(PROGRAMFILES) $(BINARIES) 
 

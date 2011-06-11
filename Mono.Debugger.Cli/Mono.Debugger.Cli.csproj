@@ -72,6 +72,14 @@
     </Reference>
     <Reference Include="System.Configuration">
     </Reference>
+    <Reference Include="Mono.Cecil, Version=0.9.4.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="OldNRefactory, Version=2.1.1.0, Culture=neutral, PublicKeyToken=efe927acf176eea2">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\OldNRefactory.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Argument.cs" />

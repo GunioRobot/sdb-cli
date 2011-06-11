@@ -1,5 +1,5 @@
 
-EXTRA_DIST =  expansions.m4 Dependencies/Mono.Debugger.Soft.dll Dependencies/Mono.Debugging.dll Dependencies/Mono.Debugging.Soft.dll
+EXTRA_DIST =  expansions.m4 Dependencies/Mono.Debugger.Soft.dll Dependencies/Mono.Debugging.dll Dependencies/Mono.Debugging.Soft.dll Dependencies/Mono.Cecil.dll Dependencies/OldNRefactory.dll
 
 #Warning: This is an automatically generated file, do not edit!
 if ENABLE_DEBUG
