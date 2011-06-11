@@ -58,6 +58,8 @@ namespace Mono.Debugger.Cli.Debugging
 
         private static bool _isDoomed;
 
+        private static string _runtimePath;
+
         static SoftDebugger()
         {
             InitializeSession();
@@ -74,6 +76,46 @@ namespace Mono.Debugger.Cli.Debugging
 
                 e.Cancel = true;
             };
+
+            FindRuntime();
+        }
+
+        private static void FindRuntime()
+        {
+            var rtPaths = Configuration.RuntimePathPrefixes;
+            string fullPath = null;
+
+            if (rtPaths != null)
+            {
+                foreach (var prefix in rtPaths)
+                {
+                    if (string.IsNullOrWhiteSpace(prefix))
+                        continue;
+
+                    fullPath = Path.Combine(prefix, "bin");
+
+                    if (Environment.OSVersion.Platform != PlatformID.Win32NT)
+                        fullPath = Path.Combine(fullPath, "mono");
+                    else
+                        fullPath = Path.Combine(fullPath, "mono.exe");
+
+                    if (File.Exists(fullPath))
+                    {
+                        _runtimePath = prefix;
+                        break;
+                    }
+                }
+
+                if (_runtimePath != null)
+                    Logger.WriteInfoLine("Using runtime: {0}", fullPath);
+                else
+                    Logger.WriteErrorLine("No valid runtime found.");
+            }
+            else
+            {
+                Logger.WriteErrorLine("Failed to load configuration.");
+                return;
+            }
         }
 
         public static void InitializeSession()
@@ -199,46 +241,13 @@ namespace Mono.Debugger.Cli.Debugging
             if (Session == null)
                 InitializeSession();
 
-            var rtPaths = Configuration.RuntimePathPrefixes;
-            string runtimePath = null;
-            string fullPath = null;
-
-            if (rtPaths != null)
+            if (_runtimePath == null)
             {
-                foreach (var prefix in rtPaths)
-                {
-                    if (string.IsNullOrWhiteSpace(prefix))
-                        continue;
-
-                    fullPath = Path.Combine(prefix, "bin");
-
-                    if (Environment.OSVersion.Platform != PlatformID.Win32NT)
-                        fullPath = Path.Combine(fullPath, "mono");
-                    else
-                        fullPath = Path.Combine(fullPath, "mono.exe");
-
-                    if (File.Exists(fullPath))
-                    {
-                        runtimePath = prefix;
-                        break;
-                    }
-                }
-
-                if (runtimePath == null)
-                {
-                    Logger.WriteErrorLine("No valid runtime found.");
-                    return;
-                }
-
-                Logger.WriteInfoLine("Using runtime: {0}", fullPath);
-            }
-            else
-            {
-                Logger.WriteErrorLine("Failed to load configuration.");
+                Logger.WriteErrorLine("No valid runtime found.");
                 return;
             }
 
-            Session.Run(new SoftDebuggerStartInfo(runtimePath, new Dictionary<string, string>())
+            Session.Run(new SoftDebuggerStartInfo(_runtimePath, new Dictionary<string, string>())
             {
                 Arguments = args,
                 Command = path,
