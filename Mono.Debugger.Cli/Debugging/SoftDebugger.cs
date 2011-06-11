@@ -162,6 +162,9 @@ namespace Mono.Debugger.Cli.Debugging
             {
                 foreach (var prefix in rtPaths)
                 {
+                    if (string.IsNullOrWhiteSpace(prefix))
+                        continue;
+
                     fullPath = Path.Combine(prefix, "bin");
 
                     if (Environment.OSVersion.Platform != PlatformID.Win32NT)

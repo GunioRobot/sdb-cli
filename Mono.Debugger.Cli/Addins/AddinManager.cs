@@ -16,6 +16,9 @@ namespace Mono.Debugger.Cli.Addins
             {
                 foreach (var path in addinPaths)
                 {
+                    if (string.IsNullOrWhiteSpace(path))
+                        continue;
+
                     try
                     {
                         var asm = Assembly.LoadFile(path);
