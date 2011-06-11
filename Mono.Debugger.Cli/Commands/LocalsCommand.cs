@@ -40,7 +40,8 @@ namespace Mono.Debugger.Cli.Commands
             }
 
             foreach (var local in frame.GetLocalVariables())
-                Logger.WriteInfoLine("[{0}] {1}: {2}", local.TypeName, local.Name, local.DisplayValue);
+                if (!local.IsUnknown && !local.IsError && !local.IsNotSupported)
+                    Logger.WriteInfoLine("[{0}] {1}: {2}", local.TypeName, local.Name, local.DisplayValue);
         }
     }
 }
