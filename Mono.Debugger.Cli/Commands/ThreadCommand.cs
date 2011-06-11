@@ -6,7 +6,7 @@ using Mono.Debugging.Client;
 
 namespace Mono.Debugger.Cli.Commands
 {
-    public sealed class ThreadCommand : ICommand
+    internal sealed class ThreadCommand : ICommand
     {
         public string Name
         {

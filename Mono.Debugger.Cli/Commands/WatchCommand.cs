@@ -5,7 +5,7 @@ using Mono.Debugger.Cli.Logging;
 
 namespace Mono.Debugger.Cli.Commands
 {
-    public sealed class WatchCommand : ICommand
+    internal sealed class WatchCommand : ICommand
     {
         public string Name
         {

@@ -4,7 +4,7 @@ using Mono.Debugger.Soft;
 
 namespace Mono.Debugger.Cli.Debugging
 {
-    public static class ExceptionPrinter
+    internal static class ExceptionPrinter
     {
         public static void Print(ThreadMirror thread, ObjectMirror ex)
         {

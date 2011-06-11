@@ -5,7 +5,7 @@ using Mono.Debugger.Cli.Logging;
 
 namespace Mono.Debugger.Cli
 {
-    public static class Configuration
+    internal static class Configuration
     {
         private static readonly System.Configuration.Configuration _cfg;
 

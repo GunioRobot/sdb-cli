@@ -67,13 +67,13 @@ namespace Mono.Debugger.Cli.Logging
         }
 
         [Conditional("DEBUG")]
-        public static void WriteDebug(string format, params object[] args)
+        internal static void WriteDebug(string format, params object[] args)
         {
             Write(ConsoleColor.Magenta, format, args);
         }
 
         [Conditional("DEBUG")]
-        public static void WriteDebugLine(string format, params object[] args)
+        internal static void WriteDebugLine(string format, params object[] args)
         {
             WriteDebug(string.Format("{0}{1}", format, Environment.NewLine), args);
         }

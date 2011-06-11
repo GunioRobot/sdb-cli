@@ -5,7 +5,7 @@ using Mono.Debugger.Cli.Logging;
 
 namespace Mono.Debugger.Cli.Commands
 {
-    public sealed class DisassembleCommand : ICommand
+    internal sealed class DisassembleCommand : ICommand
     {
         public string Name
         {

@@ -7,7 +7,7 @@ using Mono.Debugging.Client;
 
 namespace Mono.Debugger.Cli.Commands
 {
-    public sealed class BreakpointCommand : ICommand
+    internal class BreakpointCommand : ICommand
     {
         public string Name
         {

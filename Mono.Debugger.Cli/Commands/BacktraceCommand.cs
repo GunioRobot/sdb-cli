@@ -6,7 +6,7 @@ using Mono.Debugger.Cli.Logging;
 
 namespace Mono.Debugger.Cli.Commands
 {
-    public sealed class BacktraceCommand : ICommand
+    internal sealed class BacktraceCommand : ICommand
     {
         public string Name
         {

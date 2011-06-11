@@ -6,7 +6,7 @@ using Mono.Debugger.Cli.Logging;
 
 namespace Mono.Debugger.Cli.Commands
 {
-    public sealed class FrameCommand : ICommand
+    internal sealed class FrameCommand : ICommand
     {
         public string Name
         {

@@ -4,7 +4,7 @@ using Mono.Debugger.Cli.Logging;
 
 namespace Mono.Debugger.Cli.Commands
 {
-    public sealed class StartCommand : ICommand
+    internal sealed class StartCommand : ICommand
     {
         public string Name
         {

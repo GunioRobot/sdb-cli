@@ -5,7 +5,7 @@ using Mono.Debugger.Cli.Logging;
 
 namespace Mono.Debugger.Cli.Commands
 {
-    public sealed class PauseCommand : ICommand
+    internal sealed class PauseCommand : ICommand
     {
         public string Name
         {

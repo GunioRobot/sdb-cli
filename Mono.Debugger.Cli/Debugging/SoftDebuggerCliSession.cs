@@ -20,7 +20,7 @@ namespace Mono.Debugger.Cli.Debugging
             get { return GetProcesses().Single(); }
         }
 
-        public long GenerateWatchId()
+        internal long GenerateWatchId()
         {
             return _lastWatchId++;
         }

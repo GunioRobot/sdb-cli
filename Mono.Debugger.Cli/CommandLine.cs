@@ -12,7 +12,7 @@ namespace Mono.Debugger.Cli
 {
     public static class CommandLine
     {
-        public static bool Stop { get; set; }
+        internal static bool Stop { get; set; }
 
         public static List<ICommand> Commands { get; private set; }
 
@@ -42,7 +42,7 @@ namespace Mono.Debugger.Cli
             };
         }
 
-        public static void CommandLoop()
+        internal static void CommandLoop()
         {
             Logger.WriteInfoLine("Welcome to the Mono Soft Debugger CLI!");
             Logger.WriteInfoLine("Using {0} and {1} with features: {2}", typeof(VirtualMachine).Assembly.GetName().Name,

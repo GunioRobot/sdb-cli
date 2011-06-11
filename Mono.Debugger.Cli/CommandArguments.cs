@@ -6,7 +6,7 @@ namespace Mono.Debugger.Cli
 {
     public sealed class CommandArguments
     {
-        public CommandArguments(IEnumerable<string> args)
+        internal CommandArguments(IEnumerable<string> args)
         {
             _args = args;
             _enum = args.GetEnumerator();

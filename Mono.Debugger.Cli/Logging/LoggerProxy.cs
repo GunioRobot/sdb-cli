@@ -3,7 +3,7 @@ using Mono.Debugging.Soft;
 
 namespace Mono.Debugger.Cli.Logging
 {
-    public sealed class LoggerProxy : ICustomLogger
+    internal sealed class LoggerProxy : ICustomLogger
     {
         public void LogError(string message, Exception ex)
         {
