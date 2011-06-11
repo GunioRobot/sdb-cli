@@ -14,7 +14,7 @@ namespace Mono.Debugger.Cli
     {
         internal static bool Stop { get; set; }
 
-        public static List<ICommand> Commands { get; private set; }
+        internal static List<ICommand> Commands { get; private set; }
 
         static CommandLine()
         {
