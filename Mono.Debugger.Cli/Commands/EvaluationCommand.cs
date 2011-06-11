@@ -17,9 +17,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Evaluates an expression in the current stack frame's context."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get { yield return Argument.Required("Expr"); }
+            get { return "<Expr>"; }
         }
 
         public void Execute(CommandArguments args)

@@ -8,7 +8,7 @@ namespace Mono.Debugger.Cli
 
         string Description { get; }
 
-        IEnumerable<string> Arguments { get; }
+        string Arguments { get; }
 
         void Execute(CommandArguments args);
     }

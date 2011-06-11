@@ -17,13 +17,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Creates/removes/views expression watches."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get
-            {
-                yield return Argument.Optional("Add|Delete|Clear");
-                yield return Argument.Optional("Expr|WatchId");
-            }
+            get { return "[Add <Expr>|Delete <WatchId>|Clear"; }
         }
 
         public void Execute(CommandArguments args)

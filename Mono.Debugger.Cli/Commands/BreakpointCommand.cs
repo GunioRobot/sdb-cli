@@ -19,13 +19,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Creates/removes/lists breakpoints."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get
-            {
-                yield return Argument.Required("Add|Set|Delete|Clear");
-                yield return Argument.Optional("FileName", "Line");
-            }
+            get { return "[Add <FileName> <Line>|Set <FrameId> <Line>|Delete <FileName> <Line>|Clear]"; }
         }
 
         public void Execute(CommandArguments args)

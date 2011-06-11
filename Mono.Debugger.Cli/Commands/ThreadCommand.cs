@@ -18,13 +18,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Lists/switches between active threads."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get
-            {
-                yield return Argument.Optional("Switch");
-                yield return Argument.Optional("ThreadId");
-            }
+            get { return "[Switch <ThreadId>]"; }
         }
 
         public void Execute(CommandArguments args)

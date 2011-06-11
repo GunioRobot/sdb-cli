@@ -16,9 +16,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Initializes a new session."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get { return Argument.None(); }
+            get { return string.Empty; }
         }
 
         public void Execute(CommandArguments args)

@@ -18,9 +18,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Displays a backtrace when in a paused state."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get { yield return Argument.Optional("Source"); }
+            get { return "[Source]"; }
         }
 
         public void Execute(CommandArguments args)

@@ -16,13 +16,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Steps into/over an instruction/line or out of a method."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get
-            {
-                yield return Argument.Required("Into|Over|Out");
-                yield return Argument.Optional("Line/Instr");
-            }
+            get { return "Into (Line|Instr)|Over (Line|Instr)|Out"; }
         }
 
         public void Execute(CommandArguments args)

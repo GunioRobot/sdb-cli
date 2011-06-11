@@ -16,9 +16,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Exits the debugger, killing any running process."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get { return Argument.None(); }
+            get { return string.Empty; }
         }
 
         public void Execute(CommandArguments args)

@@ -18,9 +18,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Switches/shows the current stack frame."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get { yield return Argument.Optional("FrameId"); }
+            get { return "[<FrameId>]"; }
         }
 
         public void Execute(CommandArguments args)

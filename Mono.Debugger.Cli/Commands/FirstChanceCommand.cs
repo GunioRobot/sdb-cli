@@ -17,9 +17,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Sets/displays whether we're catching first-chance exceptions."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get { yield return Argument.Optional("Enabled"); }
+            get { return "[<Enabled>]"; }
         }
 
         public void Execute(CommandArguments args)

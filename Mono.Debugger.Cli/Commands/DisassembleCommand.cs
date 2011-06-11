@@ -17,9 +17,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Disassembles the current stack frame."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get { yield return Argument.Optional("LowerLines", "UpperLines"); }
+            get { return "[<StartOffset> <Count>]"; }
         }
 
         public void Execute(CommandArguments args)

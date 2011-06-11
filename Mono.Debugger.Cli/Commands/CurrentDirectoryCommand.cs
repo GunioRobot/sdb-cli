@@ -16,9 +16,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Changes/prints current working directory."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get { yield return Argument.Optional("Dir"); }
+            get { return "[<Dir>]"; }
         }
 
         public void Execute(CommandArguments args)

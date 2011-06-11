@@ -63,7 +63,6 @@ RESGEN=resgen2
 all: $(ASSEMBLY) $(PROGRAMFILES) $(BINARIES) 
 
 FILES = \
-	Argument.cs \
 	CommandArguments.cs \
 	CommandLine.cs \
 	Commands/BreakpointCommand.cs \

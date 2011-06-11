@@ -16,18 +16,15 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Displays a list of available commands."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get { return Argument.None(); }
+            get { return string.Empty; }
         }
 
         public void Execute(CommandArguments args)
         {
             foreach (var command in CommandLine.Commands)
-            {
-                var cmdArgs = command.Arguments.Aggregate(string.Empty, (current, arg) => current + arg + " ");
-                Logger.WriteInfoLine("{0} {1}: {2}", command.Name, cmdArgs, command.Description);
-            }
+                Logger.WriteInfoLine("{0} {1}: {2}", command.Name, command.Arguments, command.Description);
         }
     }
 }

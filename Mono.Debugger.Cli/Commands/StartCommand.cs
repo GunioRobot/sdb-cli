@@ -16,13 +16,9 @@ namespace Mono.Debugger.Cli.Commands
             get { return "Starts a process in the debugger and attaches to it."; }
         }
 
-        public IEnumerable<string> Arguments
+        public string Arguments
         {
-            get
-            {
-                yield return Argument.Required("Path");
-                yield return Argument.Optional("Args");
-            }
+            get { return "<Path> [<Args>]"; }
         }
 
         public void Execute(CommandArguments args)
