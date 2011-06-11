@@ -46,7 +46,7 @@ namespace Mono.Debugger.Cli.Debugging
 
         public static FileInfo CurrentExecutable { get; private set; }
 
-        public static BacktraceInfo Backtrace { get; set; }
+        public static BacktraceInfo Backtrace { get; private set; }
 
         public static string WorkingDirectory { get; set; }
 
@@ -63,6 +63,17 @@ namespace Mono.Debugger.Cli.Debugging
             InitializeSession();
 
             WorkingDirectory = Environment.CurrentDirectory;
+
+            Console.CancelKeyPress += (sender, e) =>
+            {
+                if (State == DebuggerState.Running)
+                {
+                    Pause();
+                    CommandLine.ResumeEvent.Set();
+                }
+
+                e.Cancel = true;
+            };
         }
 
         public static void InitializeSession()
@@ -74,12 +85,14 @@ namespace Mono.Debugger.Cli.Debugging
 
             Session.ExceptionHandler = ex =>
             {
-                Logger.WriteErrorLine("{0}: {1}", ex.GetType(), ex.Message);
+                Logger.WriteErrorLine("Internal Error: {0}: {1}", ex.GetType(), ex.Message);
+                Logger.WriteErrorLine("{0}", ex.StackTrace);
 
                 var innerEx = ex.InnerException;
                 while (innerEx != null)
                 {
                     Logger.WriteErrorLine("--> {0}: {1}", innerEx.GetType(), innerEx.Message);
+                    Logger.WriteErrorLine("{0}", innerEx.StackTrace);
 
                     innerEx = innerEx.InnerException;
                 }
@@ -117,9 +130,34 @@ namespace Mono.Debugger.Cli.Debugging
             Session.TargetHitBreakpoint += (sender, e) =>
             {
                 _isPaused = true;
+                SetBacktrace(e.Backtrace);
 
                 var bp = (Breakpoint)e.BreakEvent;
                 Logger.WriteEmphasisLine("Breakpoint hit: {0}:{1}", bp.FileName, bp.Line);
+
+                if (CommandLine.Suspended)
+                    CommandLine.ResumeEvent.Set();
+            };
+
+            Session.TargetStopped += (sender, e) =>
+            {
+                _isPaused = true;
+                SetBacktrace(e.Backtrace);
+
+                Logger.WriteEmphasisLine("Process interrupted.");
+
+                if (CommandLine.Suspended)
+                    CommandLine.ResumeEvent.Set();
+            };
+
+            Session.TargetExited += (sender, e) =>
+            {
+                Stop();
+
+                Logger.WriteEmphasisLine("Process exited normally.");
+
+                if (CommandLine.Suspended)
+                    CommandLine.ResumeEvent.Set();
             };
 
             Session.TargetEvent += (sender, e) =>
@@ -130,14 +168,7 @@ namespace Mono.Debugger.Cli.Debugging
 
         private static void ExceptionHandler(object sender, TargetEventArgs e, bool firstChance)
         {
-            var bt = e.Backtrace;
-            var list = new List<StackFrame>();
-
-            for (var i = 0; i < bt.FrameCount; i++)
-                list.Add(bt.GetFrame(i - 1));
-
-            Backtrace = new BacktraceInfo(list);
-            Backtrace.SetActiveFrame(0);
+            SetBacktrace(e.Backtrace);
 
             _isPaused = true;
             _isExcepted = !firstChance;
@@ -147,6 +178,20 @@ namespace Mono.Debugger.Cli.Debugging
             var ex = session.GetExceptionObject(thread);
 
             ExceptionPrinter.Print(thread, ex);
+
+            if (CommandLine.Suspended)
+                CommandLine.ResumeEvent.Set();
+        }
+
+        public static void SetBacktrace(Backtrace bt)
+        {
+            var list = new List<StackFrame>();
+
+            for (var i = 0; i < bt.FrameCount; i++)
+                list.Add(bt.GetFrame(i - 1));
+
+            Backtrace = new BacktraceInfo(list);
+            Backtrace.SetActiveFrame(0);
         }
 
         public static void Start(string path, string args)

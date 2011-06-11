@@ -65,13 +65,7 @@ namespace Mono.Debugger.Cli.Commands
                         }
 
                         var bt = thread.Backtrace;
-                        var list = new List<StackFrame>();
-
-                        for (var i = 0; i < bt.FrameCount; i++)
-                            list.Add(bt.GetFrame(i - 1));
-
-                        SoftDebugger.Backtrace = new BacktraceInfo(list);
-                        SoftDebugger.Backtrace.SetActiveFrame(0);
+                        SoftDebugger.SetBacktrace(bt);
 
                         Logger.WriteInfoLine("Switched context to thread: {0}", reqId);
                         return;

@@ -37,6 +37,7 @@ namespace Mono.Debugger.Cli.Commands
                 progArgs += progArg + " ";
 
             SoftDebugger.Start(path, progArgs);
+            CommandLine.Suspended = true;
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Mono.Debugger.Cli.Commands;
 using Mono.Debugger.Cli.Debugging;
 using Mono.Debugger.Cli.Logging;
@@ -12,9 +13,13 @@ namespace Mono.Debugger.Cli
 {
     public static class CommandLine
     {
-        internal static bool Stop { get; set; }
+        internal static bool Stopped { get; set; }
+
+        internal static bool Suspended { get; set; }
 
         internal static List<ICommand> Commands { get; private set; }
+
+        internal static AutoResetEvent ResumeEvent { get; private set; }
 
         static CommandLine()
         {
@@ -40,6 +45,8 @@ namespace Mono.Debugger.Cli
                 new WatchCommand(),
                 new ThreadCommand(),
             };
+
+            ResumeEvent = new AutoResetEvent(false);
         }
 
         internal static void CommandLoop()
@@ -52,7 +59,7 @@ namespace Mono.Debugger.Cli
             string line;
             while ((line = Console.ReadLine()) != null)
             {
-                if (string.IsNullOrEmpty(line))
+                if (string.IsNullOrWhiteSpace(line))
                     continue;
 
                 var fullCmd = line.Split(' ');
@@ -61,7 +68,7 @@ namespace Mono.Debugger.Cli
                 var command = Commands.SingleOrDefault(x => x.Name.Equals(cmd, StringComparison.OrdinalIgnoreCase));
                 if (command == null)
                 {
-                    Logger.WriteErrorLine("No such command.");
+                    Logger.WriteErrorLine("No such command: {0}", cmd);
                     continue;
                 }
 
@@ -71,18 +78,24 @@ namespace Mono.Debugger.Cli
                 }
                 catch (Exception ex)
                 {
-                    Logger.WriteErrorLine("Error executing command {0}:", cmd);
+                    Logger.WriteErrorLine("Error executing command:", cmd);
                     Logger.WriteErrorLine(ex.Message);
 
                     if (!(ex is CommandArgumentException))
                         Logger.WriteErrorLine(ex.StackTrace);
                 }
 
-                if (Stop)
+                if (Suspended)
+                {
+                    ResumeEvent.WaitOne();
+                    Suspended = false;
+                }
+
+                if (Stopped)
                     break;
             }
 
-            if (SoftDebugger.Session != null)
+            if (SoftDebugger.State != DebuggerState.Null)
                 SoftDebugger.Stop();
         }
     }

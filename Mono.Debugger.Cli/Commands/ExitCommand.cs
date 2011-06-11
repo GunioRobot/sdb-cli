@@ -26,7 +26,7 @@ namespace Mono.Debugger.Cli.Commands
             if (SoftDebugger.State != DebuggerState.Null)
                 SoftDebugger.Stop();
 
-            CommandLine.Stop = true;
+            CommandLine.Stopped = true;
             Logger.WriteInfoLine("Bye!");
         }
     }
