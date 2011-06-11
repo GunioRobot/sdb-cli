@@ -40,7 +40,13 @@ namespace Mono.Debugger.Cli.Commands
             var threads = session.VirtualMachine.GetThreads();
 
             foreach (var thread in threads)
-                Logger.WriteInfoLine("[{0}] {1}: {2}", thread.Id, thread.Name, thread.ThreadState);
+            {
+                var id = thread.Id.ToString();
+                if (thread.IsThreadPoolThread)
+                    id += " (TP)";
+
+                Logger.WriteInfoLine("[{0}: {1}] {2}: {3}", thread.Domain.FriendlyName, id, thread.Name, thread.ThreadState);
+            }
         }
     }
 }
