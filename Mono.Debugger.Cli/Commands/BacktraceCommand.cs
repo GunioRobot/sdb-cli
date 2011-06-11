@@ -50,9 +50,9 @@ namespace Mono.Debugger.Cli.Commands
             }
 
             var bt = backtrace.CurrentBacktrace;
-            for (var i = 0; i < bt.FrameCount; i++)
+            for (var i = 0; i < bt.Count; i++)
             {
-                var frame = bt.GetFrame(i);
+                var frame = bt[i];
                 var loc = frame.SourceLocation;
                 var fileName = loc.FileName;
                 var location = "<unknown>";

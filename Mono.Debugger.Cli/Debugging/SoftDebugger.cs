@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Mono.Debugger.Cli.Logging;
-using Mono.Debugger.Soft;
 using Mono.Debugging.Client;
 using Mono.Debugging.Soft;
 
@@ -132,8 +131,12 @@ namespace Mono.Debugger.Cli.Debugging
         private static void ExceptionHandler(object sender, TargetEventArgs e, bool firstChance)
         {
             var bt = e.Backtrace;
+            var list = new List<StackFrame>();
 
-            Backtrace = new BacktraceInfo(bt)
+            for (var i = 0; i < bt.FrameCount - 1; i++)
+                list.Add(bt.GetFrame(i));
+
+            Backtrace = new BacktraceInfo(list)
             {
                 CurrentStackFrame = bt.GetFrame(0),
                 CurrentStackFrameId = 0,

@@ -41,7 +41,7 @@ namespace Mono.Debugger.Cli.Commands
 
             var bt = backtrace.CurrentBacktrace;
 
-            if (frame < 0 || frame > bt.FrameCount - 1)
+            if (frame < 0 || frame > bt.Count - 1)
             {
                 Logger.WriteErrorLine("Invalid stack frame.");
                 return;
