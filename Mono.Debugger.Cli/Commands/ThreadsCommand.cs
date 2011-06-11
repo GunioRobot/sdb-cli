@@ -45,7 +45,11 @@ namespace Mono.Debugger.Cli.Commands
                 if (thread.IsThreadPoolThread)
                     id += " (TP)";
 
-                Logger.WriteInfoLine("[{0}: {1}] {2}: {3}", thread.Domain.FriendlyName, id, thread.Name, thread.ThreadState);
+                var str = string.Format("[{0}: {1}] {2}: {3}", thread.Domain.FriendlyName, id, thread.Name, thread.ThreadState);
+                if (thread.Id == session.ActiveThread.Id)
+                    Logger.WriteEmphasisLine("{0}", str);
+                else
+                    Logger.WriteInfoLine("{0}", str);
             }
         }
     }
