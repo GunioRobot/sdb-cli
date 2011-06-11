@@ -264,8 +264,9 @@ namespace Mono.Debugger.Cli
             if (current.StartsWith("\""))
             {
                 while (!current.EndsWith("\""))
-                    current += NextString();
+                    current += " " + NextString();
 
+                // Skip the last space and quotation mark.
                 return current.Substring(1, current.Length - 2);
             }
 
