@@ -49,9 +49,30 @@ namespace Mono.Debugger.Cli.Addins
                     var ctor = type.GetConstructor(Type.EmptyTypes);
 
                     if (ctor == null)
-                        throw new MissingMethodException("No usable constructor for {0}.", type.Name);
+                    {
+                        Logger.WriteErrorLine("Could not load {0}: No parameterless constructor.", type.Name);
+                        continue;
+                    }
 
-                    var cmd = (ICommand)ctor.Invoke(null);
+                    ICommand cmd = null;
+
+                    try
+                    {
+                        cmd = (ICommand)ctor.Invoke(null);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.WriteErrorLine("Could not load {0}: {1}", ex.Message);
+                        Logger.WriteErrorLine("{0}", ex.StackTrace);
+                        continue;
+                    }
+
+                    if (CommandLine.Commands.Any(x => x.Name == cmd.Name))
+                    {
+                        Logger.WriteErrorLine("Could not load {0}: Duplicate command name.", type.Name);
+                        continue;
+                    }
+
                     CommandLine.Commands.Add(cmd);
                 }
             }
