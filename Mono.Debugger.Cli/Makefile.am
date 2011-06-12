@@ -98,7 +98,8 @@ FILES = \
 	Debugging/BacktraceInfo.cs \
 	Commands/ThreadCommand.cs \
 	Addins/AddinManager.cs \
-	Commands/CatchpointCommand.cs 
+	Commands/CatchpointCommand.cs \
+	Commands/DatabaseCommand.cs 
 
 DATA_FILES = 
 
@@ -113,7 +114,8 @@ EXTRAS = \
 REFERENCES =  \
 	System \
 	System.Core \
-	System.Configuration
+	System.Configuration \
+	System.Xml
 
 DLL_REFERENCES =  \
 	../Dependencies/Mono.Debugger.Soft.dll \

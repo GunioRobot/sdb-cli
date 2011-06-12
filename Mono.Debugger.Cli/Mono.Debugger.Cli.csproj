@@ -80,6 +80,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\OldNRefactory.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandArguments.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Commands\ThreadCommand.cs" />
     <Compile Include="Addins\AddinManager.cs" />
     <Compile Include="Commands\CatchpointCommand.cs" />
+    <Compile Include="Commands\DatabaseCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Mono.Debugger.Cli.snk" />
