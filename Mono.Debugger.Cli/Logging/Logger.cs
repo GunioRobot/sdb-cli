@@ -28,7 +28,7 @@ namespace Mono.Debugger.Cli.Logging
 
         public static void WriteInfo(string format, params object[] args)
         {
-            Write(ConsoleColor.White, format, args);
+            Write(Configuration.InfoColor, format, args);
         }
 
         public static void WriteInfoLine(string format, params object[] args)
@@ -38,7 +38,7 @@ namespace Mono.Debugger.Cli.Logging
 
         public static void WriteEmphasis(string format, params object[] args)
         {
-            Write(ConsoleColor.Cyan, format, args);
+            Write(Configuration.EmphasisColor, format, args);
         }
 
         public static void WriteEmphasisLine(string format, params object[] args)
@@ -48,7 +48,7 @@ namespace Mono.Debugger.Cli.Logging
 
         public static void WriteWarning(string format, params object[] args)
         {
-            Write(ConsoleColor.Yellow, format, args);
+            Write(Configuration.WarningColor, format, args);
         }
 
         public static void WriteWarningLine(string format, params object[] args)
@@ -58,7 +58,7 @@ namespace Mono.Debugger.Cli.Logging
 
         public static void WriteError(string format, params object[] args)
         {
-            Write(ConsoleColor.Red, format, args);
+            Write(Configuration.ErrorColor, format, args);
         }
 
         public static void WriteErrorLine(string format, params object[] args)
@@ -69,7 +69,7 @@ namespace Mono.Debugger.Cli.Logging
         [Conditional("DEBUG")]
         internal static void WriteDebug(string format, params object[] args)
         {
-            Write(ConsoleColor.Magenta, format, args);
+            Write(Configuration.DebugColor, format, args);
         }
 
         [Conditional("DEBUG")]
