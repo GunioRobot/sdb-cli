@@ -44,7 +44,7 @@ namespace Mono.Debugger.Cli.Commands
                     return;
                 case "del":
                     var delExcName = args.NextString();
-                    session.Breakpoints.Remove(new Catchpoint(delExcName));
+                    session.Breakpoints.RemoveCatchpoint(delExcName);
 
                     Logger.WriteInfoLine("Deleted catchpoint for exception: {0}", delExcName);
                     return;
