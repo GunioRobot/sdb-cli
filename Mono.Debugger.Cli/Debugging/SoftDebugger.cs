@@ -197,7 +197,7 @@ namespace Mono.Debugger.Cli.Debugging
             {
                 Stop();
 
-                Logger.WriteEmphasisLine("Process exited normally.");
+                Logger.WriteEmphasisLine("Process exited.");
 
                 if (CommandLine.Suspended)
                     CommandLine.ResumeEvent.Set();
