@@ -51,7 +51,7 @@ namespace Mono.Debugger.Cli.Commands
                     return;
                 }
 
-                var thread = threads.Single(x => x.Id == reqId);
+                var thread = threads.SingleOrDefault(x => x.Id == reqId);
 
                 if (thread == null)
                 {
@@ -59,8 +59,7 @@ namespace Mono.Debugger.Cli.Commands
                     return;
                 }
 
-                var bt = thread.Backtrace;
-                SoftDebugger.SetBacktrace(bt);
+                SoftDebugger.SetBacktrace(thread.Backtrace);
 
                 Logger.WriteInfoLine("Switched context to thread: {0}", reqId);
                 return;
