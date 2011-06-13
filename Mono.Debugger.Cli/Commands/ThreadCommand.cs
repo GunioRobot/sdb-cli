@@ -20,7 +20,7 @@ namespace Mono.Debugger.Cli.Commands
 
         public string Arguments
         {
-            get { return "[Switch <ThreadId>]"; }
+            get { return "[<ThreadId>]"; }
         }
 
         public void Execute(CommandArguments args)
@@ -43,36 +43,27 @@ namespace Mono.Debugger.Cli.Commands
 
             if (args.HasArguments)
             {
-                var op = args.NextString();
+                var reqId = args.NextInt32();
 
-                switch (op.ToLower())
+                if (SoftDebugger.State == DebuggerState.Running)
                 {
-                    case "switch":
-                        var reqId = args.NextInt32();
-
-                        if (SoftDebugger.State == DebuggerState.Running)
-                        {
-                            Logger.WriteErrorLine("Process is running.");
-                            return;
-                        }
-
-                        var thread = threads.Single(x => x.Id == reqId);
-
-                        if (thread == null)
-                        {
-                            Logger.WriteErrorLine("Could not find thread: {0}", reqId);
-                            return;
-                        }
-
-                        var bt = thread.Backtrace;
-                        SoftDebugger.SetBacktrace(bt);
-
-                        Logger.WriteInfoLine("Switched context to thread: {0}", reqId);
-                        return;
-                    default:
-                        Logger.WriteErrorLine("Unknown thread operation: {0}", op);
-                        return;
+                    Logger.WriteErrorLine("Process is running.");
+                    return;
                 }
+
+                var thread = threads.Single(x => x.Id == reqId);
+
+                if (thread == null)
+                {
+                    Logger.WriteErrorLine("Could not find thread: {0}", reqId);
+                    return;
+                }
+
+                var bt = thread.Backtrace;
+                SoftDebugger.SetBacktrace(bt);
+
+                Logger.WriteInfoLine("Switched context to thread: {0}", reqId);
+                return;
             }
 
             Logger.WriteInfoLine("Threads:");
