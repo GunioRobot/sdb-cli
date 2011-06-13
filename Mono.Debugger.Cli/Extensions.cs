@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Text;
 using Mono.Debugger.Cli.Debugging;
 using Mono.Debugging.Client;
 

@@ -5,7 +5,7 @@ EXTRA_DIST =
 
 if ENABLE_DEBUG
 ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE" "-keyfile:Mono.Debugger.Cli.snk"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
 ASSEMBLY = bin/Debug/sdb-cli.exe
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = exe
@@ -15,17 +15,19 @@ BUILD_DIR = bin/Debug/
 SDB_CLI_EXE_MDB_SOURCE=bin/Debug/sdb-cli.exe.mdb
 SDB_CLI_EXE_MDB=$(BUILD_DIR)/sdb-cli.exe.mdb
 SDB_CLI_EXE_CONFIG_SOURCE=App.config
-MONO_DEBUGGER_SOFT_DLL_SOURCE=../Dependencies/Mono.Debugger.Soft.dll
-MONO_CECIL_DLL_SOURCE=../Dependencies/Mono.Cecil.dll
 MONO_DEBUGGING_DLL_SOURCE=../Dependencies/Mono.Debugging.dll
 OLDNREFACTORY_DLL_SOURCE=../Dependencies/OldNRefactory.dll
 MONO_DEBUGGING_SOFT_DLL_SOURCE=../Dependencies/Mono.Debugging.Soft.dll
+MONO_DEBUGGER_SOFT_DLL_SOURCE=../Dependencies/Mono.Debugger.Soft.dll
+MONO_CECIL_DLL_SOURCE=../Dependencies/Mono.Cecil.dll
+ICSHARPCODE_DECOMPILER_DLL_SOURCE=../Dependencies/ICSharpCode.Decompiler.dll
+ICSHARPCODE_NREFACTORY_DLL_SOURCE=../Dependencies/ICSharpCode.NRefactory.dll
 
 endif
 
 if ENABLE_RELEASE
 ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE" "-keyfile:Mono.Debugger.Cli.snk"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE"
 ASSEMBLY = bin/Release/sdb-cli.exe
 ASSEMBLY_MDB = 
 COMPILE_TARGET = exe
@@ -34,11 +36,13 @@ BUILD_DIR = bin/Release/
 
 SDB_CLI_EXE_MDB=
 SDB_CLI_EXE_CONFIG_SOURCE=App.config
-MONO_DEBUGGER_SOFT_DLL_SOURCE=../Dependencies/Mono.Debugger.Soft.dll
-MONO_CECIL_DLL_SOURCE=../Dependencies/Mono.Cecil.dll
 MONO_DEBUGGING_DLL_SOURCE=../Dependencies/Mono.Debugging.dll
 OLDNREFACTORY_DLL_SOURCE=../Dependencies/OldNRefactory.dll
 MONO_DEBUGGING_SOFT_DLL_SOURCE=../Dependencies/Mono.Debugging.Soft.dll
+MONO_DEBUGGER_SOFT_DLL_SOURCE=../Dependencies/Mono.Debugger.Soft.dll
+MONO_CECIL_DLL_SOURCE=../Dependencies/Mono.Cecil.dll
+ICSHARPCODE_DECOMPILER_DLL_SOURCE=../Dependencies/ICSharpCode.Decompiler.dll
+ICSHARPCODE_NREFACTORY_DLL_SOURCE=../Dependencies/ICSharpCode.NRefactory.dll
 
 endif
 
@@ -48,11 +52,13 @@ SATELLITE_ASSEMBLY_NAME=$(notdir $(basename $(ASSEMBLY))).resources.dll
 PROGRAMFILES = \
 	$(SDB_CLI_EXE_MDB) \
 	$(SDB_CLI_EXE_CONFIG) \
-	$(MONO_DEBUGGER_SOFT_DLL) \
-	$(MONO_CECIL_DLL) \
 	$(MONO_DEBUGGING_DLL) \
 	$(OLDNREFACTORY_DLL) \
-	$(MONO_DEBUGGING_SOFT_DLL)  
+	$(MONO_DEBUGGING_SOFT_DLL) \
+	$(MONO_DEBUGGER_SOFT_DLL) \
+	$(MONO_CECIL_DLL) \
+	$(ICSHARPCODE_DECOMPILER_DLL) \
+	$(ICSHARPCODE_NREFACTORY_DLL)  
 
 BINARIES = \
 	$(SDB_CLI)  
@@ -99,7 +105,9 @@ FILES = \
 	Commands/ThreadCommand.cs \
 	Addins/AddinManager.cs \
 	Commands/CatchpointCommand.cs \
-	Commands/DatabaseCommand.cs 
+	Commands/DatabaseCommand.cs \
+	Commands/DecompileCommand.cs \
+	Decompilation/DecompilerFormatter.cs 
 
 DATA_FILES = 
 
@@ -109,6 +117,7 @@ EXTRAS = \
 	Mono.Debugger.Cli.snk \
 	App.config \
 	Addins \
+	Decompilation \
 	sdb-cli.in 
 
 REFERENCES =  \
@@ -118,30 +127,36 @@ REFERENCES =  \
 	System.Xml
 
 DLL_REFERENCES =  \
-	../Dependencies/Mono.Debugger.Soft.dll \
 	../Dependencies/Mono.Debugging.dll \
 	../Dependencies/Mono.Debugging.Soft.dll \
 	../Dependencies/Mono.Cecil.dll \
-	../Dependencies/OldNRefactory.dll
+	../Dependencies/OldNRefactory.dll \
+	../Dependencies/ICSharpCode.Decompiler.dll \
+	../Dependencies/ICSharpCode.NRefactory.dll \
+	../Dependencies/Mono.Debugger.Soft.dll
 
 CLEANFILES = $(PROGRAMFILES) $(BINARIES) 
 
 include $(top_srcdir)/Makefile.include
 
 SDB_CLI_EXE_CONFIG = $(BUILD_DIR)/sdb-cli.exe.config
-MONO_DEBUGGER_SOFT_DLL = $(BUILD_DIR)/Mono.Debugger.Soft.dll
-MONO_CECIL_DLL = $(BUILD_DIR)/Mono.Cecil.dll
 MONO_DEBUGGING_DLL = $(BUILD_DIR)/Mono.Debugging.dll
 OLDNREFACTORY_DLL = $(BUILD_DIR)/OldNRefactory.dll
 MONO_DEBUGGING_SOFT_DLL = $(BUILD_DIR)/Mono.Debugging.Soft.dll
+MONO_DEBUGGER_SOFT_DLL = $(BUILD_DIR)/Mono.Debugger.Soft.dll
+MONO_CECIL_DLL = $(BUILD_DIR)/Mono.Cecil.dll
+ICSHARPCODE_DECOMPILER_DLL = $(BUILD_DIR)/ICSharpCode.Decompiler.dll
+ICSHARPCODE_NREFACTORY_DLL = $(BUILD_DIR)/ICSharpCode.NRefactory.dll
 SDB_CLI = $(BUILD_DIR)/sdb-cli
 
 $(eval $(call emit-deploy-target,SDB_CLI_EXE_CONFIG))
-$(eval $(call emit-deploy-target,MONO_DEBUGGER_SOFT_DLL))
-$(eval $(call emit-deploy-target,MONO_CECIL_DLL))
 $(eval $(call emit-deploy-target,MONO_DEBUGGING_DLL))
 $(eval $(call emit-deploy-target,OLDNREFACTORY_DLL))
 $(eval $(call emit-deploy-target,MONO_DEBUGGING_SOFT_DLL))
+$(eval $(call emit-deploy-target,MONO_DEBUGGER_SOFT_DLL))
+$(eval $(call emit-deploy-target,MONO_CECIL_DLL))
+$(eval $(call emit-deploy-target,ICSHARPCODE_DECOMPILER_DLL))
+$(eval $(call emit-deploy-target,ICSHARPCODE_NREFACTORY_DLL))
 $(eval $(call emit-deploy-wrapper,SDB_CLI,sdb-cli,x))
 
 

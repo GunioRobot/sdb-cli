@@ -18,7 +18,6 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisLogFile>bin\Debug\Mono.Debugger.Cli.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
@@ -50,19 +49,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
     <AssemblyOriginatorKeyFile>Mono.Debugger.Cli.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
     </Reference>
     <Reference Include="System.Core">
-    </Reference>
-    <Reference Include="Mono.Debugger.Soft, Version=0.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependencies\Mono.Debugger.Soft.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Debugging, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5e9ce85b0923c84f">
       <HintPath>..\Dependencies\Mono.Debugging.dll</HintPath>
@@ -81,6 +73,18 @@
       <HintPath>..\Dependencies\OldNRefactory.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="ICSharpCode.Decompiler, Version=1.0.4181.33785, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\ICSharpCode.Decompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.NRefactory, Version=1.0.4181.33781, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\ICSharpCode.NRefactory.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Debugger.Soft, Version=0.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Mono.Debugger.Soft.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandArguments.cs" />
@@ -120,6 +124,8 @@
     <Compile Include="Addins\AddinManager.cs" />
     <Compile Include="Commands\CatchpointCommand.cs" />
     <Compile Include="Commands\DatabaseCommand.cs" />
+    <Compile Include="Commands\DecompileCommand.cs" />
+    <Compile Include="Decompilation\DecompilerFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Mono.Debugger.Cli.snk" />
@@ -143,5 +149,6 @@
   </ProjectExtensions>
   <ItemGroup>
     <Folder Include="Addins\" />
+    <Folder Include="Decompilation\" />
   </ItemGroup>
 </Project>

@@ -42,6 +42,7 @@ namespace Mono.Debugger.Cli
                 new FrameCommand(),
                 new DisassembleCommand(),
                 new SourceCommand(),
+                new DecompileCommand(),
                 new LocalsCommand(),
                 new EvaluationCommand(),
                 new WatchCommand(),
