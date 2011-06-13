@@ -20,21 +20,21 @@ namespace Mono.Debugger.Cli.Commands
 
         public string Arguments
         {
-            get { return "[<StartOffset> <Count>]"; }
+            get { return "[<LowerOffset> <UpperOffset>]"; }
         }
 
         public void Execute(CommandArguments args)
         {
             var hasArgs = args.HasArguments;
-            var lowerLines = 0;
-            var upperLines = 0;
+            var lowerOffset = 0;
+            var upperOffset = 0;
 
             if (hasArgs)
             {
-                lowerLines = args.NextInt32();
-                upperLines = args.NextInt32();
+                lowerOffset = args.NextInt32();
+                upperOffset = args.NextInt32();
 
-                if (upperLines < 0)
+                if (upperOffset < 0)
                 {
                     Logger.WriteErrorLine("Invalid line count.");
                     return;
@@ -58,28 +58,30 @@ namespace Mono.Debugger.Cli.Commands
             }
 
             var loc = frame.SourceLocation;
-            var fileName = loc.FileName;
-            var line = loc.Line;
 
             if (loc.HasSource())
             {
+                var fileName = loc.FileName;
+                var line = loc.Line;
                 var reader = SoftDebugger.Session.GetSourceReader(fileName);
+
                 if (reader != null)
                 {
                     if (File.GetLastWriteTime(fileName) > SoftDebugger.CurrentExecutable.LastWriteTime)
                         Logger.WriteWarningLine("Source file {0} is newer than the debugged executable!", fileName);
 
-                    var low = hasArgs ? lowerLines : line - 5;
-                    if (low < 0)
-                        low = 0;
+                    var start = hasArgs ? line + lowerOffset : line - 5;
 
-                    var up = hasArgs ? upperLines : 20;
+                    if (start < 0)
+                        start = 0;
 
-                    for (var i = 0; i < up - 1; i++)
+                    var end = (hasArgs ? line + upperOffset : start + 10) + 1;
+
+                    for (var i = 0; i < end - 1; i++)
                     {
                         var src = reader.ReadLine();
 
-                        if (i < low - 1)
+                        if (i < start - 1)
                             continue;
 
                         if (i == line - 1)

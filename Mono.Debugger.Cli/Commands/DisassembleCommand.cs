@@ -19,21 +19,21 @@ namespace Mono.Debugger.Cli.Commands
 
         public string Arguments
         {
-            get { return "[<StartOffset> <Count>]"; }
+            get { return "[<LowerOffset> <UpperOffset>]"; }
         }
 
         public void Execute(CommandArguments args)
         {
             var hasArgs = args.HasArguments;
-            var lowerLines = 0;
-            var upperLines = 0;
+            var lowerOffset = 0;
+            var upperOffset = 0;
 
             if (hasArgs)
             {
-                lowerLines = args.NextInt32();
-                upperLines = args.NextInt32();
+                lowerOffset = args.NextInt32();
+                upperOffset = args.NextInt32();
 
-                if (upperLines < 0)
+                if (upperOffset < 0)
                 {
                     Logger.WriteErrorLine("Invalid line count.");
                     return;
@@ -56,7 +56,10 @@ namespace Mono.Debugger.Cli.Commands
                 return;
             }
 
-            var disasm = frame.Disassemble(hasArgs ? lowerLines : 0, hasArgs ? upperLines : 20);
+            if (hasArgs)
+                upperOffset += System.Math.Abs(lowerOffset);
+
+            var disasm = frame.Disassemble(hasArgs ? lowerOffset : -10, hasArgs ? upperOffset + 1 : 20);
 
             foreach (var line in disasm)
             {
@@ -64,6 +67,7 @@ namespace Mono.Debugger.Cli.Commands
                     continue;
 
                 var str = string.Format("{0}:\t{1}", line.Address.ToString(Environment.Is64BitProcess ? "X8" : "X4"), line.Code);
+
                 if (line.Address == frame.Address)
                     Logger.WriteEmphasisLine("{0}", str);
                 else
