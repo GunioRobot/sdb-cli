@@ -36,8 +36,8 @@ namespace Mono.Debugger.Cli.Commands
             while ((progArg = args.NextString(string.Empty)) != string.Empty)
                 progArgs += progArg + " ";
 
-            SoftDebugger.Start(path, progArgs);
-            CommandLine.Suspended = true;
+            if (SoftDebugger.Start(path, progArgs))
+                CommandLine.Suspended = true;
         }
     }
 }

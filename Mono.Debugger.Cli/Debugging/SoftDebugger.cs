@@ -233,7 +233,7 @@ namespace Mono.Debugger.Cli.Debugging
             Backtrace.SetActiveFrame(0);
         }
 
-        public static void Start(string path, string args)
+        public static bool Start(string path, string args)
         {
             if (Session == null)
                 InitializeSession();
@@ -241,7 +241,7 @@ namespace Mono.Debugger.Cli.Debugging
             if (_runtimePath == null)
             {
                 Logger.WriteErrorLine("No valid runtime found.");
-                return;
+                return false;
             }
 
             Session.Run(new SoftDebuggerStartInfo(_runtimePath, new Dictionary<string, string>())
@@ -254,6 +254,8 @@ namespace Mono.Debugger.Cli.Debugging
                 EvaluationOptions = EvaluationOptions.DefaultOptions,
             });
             CurrentExecutable = new FileInfo(path);
+
+            return true;
         }
 
         public static void Pause()
