@@ -22,6 +22,7 @@ namespace Mono.Debugger.Cli
 
                 RuntimePathPrefixes = GetValue("runtimePathPrefixes").Split(';');
                 AddinAssemblyPaths = GetValue("addinAssemblyPaths").Split(';');
+                UseColors = bool.Parse(GetValue("useColors"));
                 InfoColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), GetValue("infoColor"));
                 EmphasisColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), GetValue("emphasisColor"));
                 WarningColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), GetValue("warningColor"));
@@ -37,6 +38,8 @@ namespace Mono.Debugger.Cli
         public static string[] RuntimePathPrefixes { get; set; }
 
         public static string[] AddinAssemblyPaths { get; set; }
+
+        public static bool UseColors { get; set; }
 
         public static ConsoleColor InfoColor { get; set; }
 

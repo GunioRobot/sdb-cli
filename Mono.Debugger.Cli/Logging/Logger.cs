@@ -20,9 +20,13 @@ namespace Mono.Debugger.Cli.Logging
         {
             lock (_lock)
             {
-                Console.ForegroundColor = color;
+                if (Configuration.UseColors)
+                    Console.ForegroundColor = color;
+
                 Console.Write(string.Format("[{0}] {1}", _programName, string.Format(format, args)));
-                Console.ResetColor();
+
+                if (Configuration.UseColors)
+                    Console.ResetColor();
             }
         }
 
