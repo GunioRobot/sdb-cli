@@ -114,24 +114,36 @@ namespace Mono.Debugger.Cli.Logging
         [Conditional("DEBUG")]
         internal static void WriteDebug(string format, params object[] args)
         {
+            if (!Configuration.DebugLog)
+                return;
+
             Write(Configuration.DebugColor, true, format, args);
         }
 
         [Conditional("DEBUG")]
         internal static void WriteDebugLine(string format, params object[] args)
         {
+            if (!Configuration.DebugLog)
+                return;
+
             Write(Configuration.DebugColor, true, string.Format("{0}{1}", format, Environment.NewLine), args);
         }
 
         [Conditional("DEBUG")]
         internal static void WriteDebugString(string format, params object[] args)
         {
+            if (!Configuration.DebugLog)
+                return;
+
             Write(Configuration.DebugColor, false, format, args);
         }
 
         [Conditional("DEBUG")]
         internal static void WriteDebugStringLine(string format, params object[] args)
         {
+            if (!Configuration.DebugLog)
+                return;
+
             Write(Configuration.DebugColor, false, string.Format("{0}{1}", format, Environment.NewLine), args);
         }
     }
