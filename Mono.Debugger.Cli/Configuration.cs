@@ -33,6 +33,7 @@ namespace Mono.Debugger.Cli
             catch (Exception ex)
             {
                 Logger.WriteErrorLine("Failed to load configuration: {0}", ex.Message);
+                Logger.WriteErrorLine("Please double-check your configuration in: {0}", _cfg.FilePath);
             }
         }
 
