@@ -96,7 +96,6 @@ FILES = \
 	Commands/FirstChanceCommand.cs \
 	Commands/SourceCommand.cs \
 	Commands/CurrentDirectoryCommand.cs \
-	Commands/PauseCommand.cs \
 	Extensions.cs \
 	Commands/StepCommand.cs \
 	Commands/InitializeCommand.cs \
@@ -107,7 +106,9 @@ FILES = \
 	Commands/CatchpointCommand.cs \
 	Commands/DatabaseCommand.cs \
 	Commands/DecompileCommand.cs \
-	Decompilation/DecompilerFormatter.cs 
+	Decompilation/DecompilerFormatter.cs \
+	CommandDialect.cs \
+	Addins/CommandAddinAttribute.cs 
 
 DATA_FILES = 
 
