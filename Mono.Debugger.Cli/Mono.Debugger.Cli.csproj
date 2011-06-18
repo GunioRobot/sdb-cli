@@ -114,7 +114,6 @@
     <Compile Include="Commands\FirstChanceCommand.cs" />
     <Compile Include="Commands\SourceCommand.cs" />
     <Compile Include="Commands\CurrentDirectoryCommand.cs" />
-    <Compile Include="Commands\PauseCommand.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Commands\StepCommand.cs" />
     <Compile Include="Commands\InitializeCommand.cs" />
