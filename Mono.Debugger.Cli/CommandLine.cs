@@ -109,7 +109,7 @@ namespace Mono.Debugger.Cli
 
             while (true)
             {
-                Logger.WriteInfo(string.Empty);
+                Logger.WriteEmphasisString("(sdb) ");
                 line = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(line))
