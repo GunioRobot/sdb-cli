@@ -7,11 +7,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class CatchpointCommand : ICommand
     {
-        public string Name
-        {
-            get { return "CP"; }
-        }
-
         public string Description
         {
             get { return "Creates/removes/lists catchpoints."; }

@@ -8,11 +8,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class SourceCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Source"; }
-        }
-
         public string Description
         {
             get { return "Prints the source code for the current stack frame."; }

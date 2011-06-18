@@ -8,11 +8,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class BacktraceCommand : ICommand
     {
-        public string Name
-        {
-            get { return "BT"; }
-        }
-
         public string Description
         {
             get { return "Displays a backtrace when in a paused state."; }

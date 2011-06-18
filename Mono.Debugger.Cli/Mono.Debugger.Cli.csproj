@@ -126,6 +126,8 @@
     <Compile Include="Commands\DatabaseCommand.cs" />
     <Compile Include="Commands\DecompileCommand.cs" />
     <Compile Include="Decompilation\DecompilerFormatter.cs" />
+    <Compile Include="CommandDialect.cs" />
+    <Compile Include="Addins\CommandAddinAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Mono.Debugger.Cli.snk" />

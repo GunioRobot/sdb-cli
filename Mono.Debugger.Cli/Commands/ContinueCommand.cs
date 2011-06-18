@@ -7,11 +7,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class ContinueCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Continue"; }
-        }
-
         public string Description
         {
             get { return "Continues the debuggee process."; }

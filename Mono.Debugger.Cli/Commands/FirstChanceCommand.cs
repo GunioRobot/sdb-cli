@@ -7,11 +7,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class FirstChanceCommand : ICommand
     {
-        public string Name
-        {
-            get { return "FC"; }
-        }
-
         public string Description
         {
             get { return "Sets/displays whether we're catching first-chance exceptions."; }

@@ -6,11 +6,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class CurrentDirectoryCommand : ICommand
     {
-        public string Name
-        {
-            get { return "CD"; }
-        }
-
         public string Description
         {
             get { return "Changes/prints current working directory."; }

@@ -6,11 +6,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class LocalsCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Locals"; }
-        }
-
         public string Description
         {
             get { return "Prints local variables."; }

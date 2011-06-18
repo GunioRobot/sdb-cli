@@ -7,11 +7,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class WatchCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Watch"; }
-        }
-
         public string Description
         {
             get { return "Creates/removes/views expression watches."; }

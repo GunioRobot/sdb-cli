@@ -6,11 +6,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class StopCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Stop"; }
-        }
-
         public string Description
         {
             get { return "Stops the currently running process and detaches."; }

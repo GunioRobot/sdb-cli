@@ -9,10 +9,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal class BreakpointCommand : ICommand
     {
-        public string Name
-        {
-            get { return "BP"; }
-        }
 
         public string Description
         {

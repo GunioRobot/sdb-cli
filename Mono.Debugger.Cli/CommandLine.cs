@@ -17,39 +17,85 @@ namespace Mono.Debugger.Cli
 
         internal static bool Suspended { get; set; }
 
-        internal static List<ICommand> Commands { get; private set; }
+        internal static CommandDialect Dialect { get; private set; }
 
         internal static AutoResetEvent ResumeEvent { get; private set; }
 
         static CommandLine()
         {
-            Commands = new List<ICommand>
-            {
-                new HelpCommand(),
-                new ExitCommand(),
-                new CurrentDirectoryCommand(),
-                new InitializeCommand(),
-                new StartCommand(),
-                new PauseCommand(),
-                new ContinueCommand(),
-                new StepCommand(),
-                new StopCommand(),
-                new BreakpointCommand(),
-                new CatchpointCommand(),
-                new DatabaseCommand(),
-                new FirstChanceCommand(),
-                new BacktraceCommand(),
-                new FrameCommand(),
-                new DisassembleCommand(),
-                new SourceCommand(),
-                new DecompileCommand(),
-                new LocalsCommand(),
-                new EvaluationCommand(),
-                new WatchCommand(),
-                new ThreadCommand(),
-            };
-
             ResumeEvent = new AutoResetEvent(false);
+
+            switch (Configuration.CommandDialect)
+            {
+                case CommandDialect.Sdb:
+                    InitializeSdbDialect();
+                    break;
+                case CommandDialect.Gdb:
+                    InitializeGdbDialect();
+                    break;
+                default:
+                    Logger.WriteErrorLine("Unknown command dialect: {0}", Configuration.CommandDialect);
+                    InitializeSdbDialect();
+                    break;
+            }
+        }
+
+        private static void InitializeSdbDialect()
+        {
+            Dialect = new CommandDialect(CommandDialect.Sdb, new Dictionary<string, ICommand>
+            {
+                { "Help", new HelpCommand() },
+                { "Exit", new ExitCommand() },
+                { "CD", new CurrentDirectoryCommand() },
+                { "Init", new InitializeCommand() },
+                { "Start", new StartCommand() },
+                { "Pause", new PauseCommand() },
+                { "Continue", new ContinueCommand() },
+                { "Step", new StepCommand() },
+                { "Stop", new StopCommand() },
+                { "BP", new BreakpointCommand() },
+                { "CP", new CatchpointCommand() },
+                { "DB", new DatabaseCommand() },
+                { "FC", new FirstChanceCommand() },
+                { "BT", new BacktraceCommand() },
+                { "Frame", new FrameCommand() },
+                { "Disasm", new DisassembleCommand() },
+                { "Source", new SourceCommand() },
+                { "Decompile", new DecompileCommand() },
+                { "Locals", new LocalsCommand() },
+                { "Eval", new EvaluationCommand() },
+                { "Watch", new WatchCommand() },
+                { "Thread", new ThreadCommand() },
+            });
+        }
+
+        private static void InitializeGdbDialect()
+        {
+            Dialect = new CommandDialect(CommandDialect.Sdb, new Dictionary<string, ICommand>
+            {
+                { "Help", new HelpCommand() },
+                { "Quit", new ExitCommand() },
+                { "CD", new CurrentDirectoryCommand() },
+                { "Init", new InitializeCommand() },
+                { "Run", new StartCommand() },
+                { "Pause", new PauseCommand() },
+                { "Continue", new ContinueCommand() },
+                { "Step", new StepCommand() },
+                { "Stop", new StopCommand() },
+                { "Break", new BreakpointCommand() },
+                { "Catch", new CatchpointCommand() },
+                { "DB", new DatabaseCommand() },
+                { "FC", new FirstChanceCommand() },
+                { "BT", new BacktraceCommand() },
+                { "Frame", new FrameCommand() },
+                { "Disassemble", new DisassembleCommand() },
+                { "Source", new SourceCommand() },
+                { "Decompile", new DecompileCommand() },
+                { "Locals", new LocalsCommand() },
+                { "Print", new EvaluationCommand() },
+                { "Watch", new WatchCommand() },
+                { "Thread", new ThreadCommand() },
+            });
         }
 
         internal static void CommandLoop()
@@ -71,8 +117,8 @@ namespace Mono.Debugger.Cli
 
                 var fullCmd = line.Split(' ');
                 var cmd = fullCmd[0];
+                var command = Dialect.Commands.SingleOrDefault(x => x.Key.Equals(cmd, StringComparison.OrdinalIgnoreCase)).Value;
 
-                var command = Commands.SingleOrDefault(x => x.Name.Equals(cmd, StringComparison.OrdinalIgnoreCase));
                 if (command == null)
                 {
                     Logger.WriteErrorLine("No such command: {0}", cmd);

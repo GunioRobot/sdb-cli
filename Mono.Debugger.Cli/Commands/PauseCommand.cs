@@ -7,11 +7,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class PauseCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Pause"; }
-        }
-
         public string Description
         {
             get { return "Pauses the debuggee process."; }

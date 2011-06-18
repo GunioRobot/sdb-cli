@@ -8,11 +8,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class DatabaseCommand : ICommand
     {
-        public string Name
-        {
-            get { return "DB"; }
-        }
-
         public string Description
         {
             get { return "Saves/loads the debugger database for the active process."; }

@@ -6,11 +6,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class InitializeCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Init"; }
-        }
-
         public string Description
         {
             get { return "Initializes a new session."; }

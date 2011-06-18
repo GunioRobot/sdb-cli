@@ -8,11 +8,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class FrameCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Frame"; }
-        }
-
         public string Description
         {
             get { return "Switches/shows the current stack frame."; }

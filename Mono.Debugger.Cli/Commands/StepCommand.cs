@@ -6,11 +6,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class StepCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Step"; }
-        }
-
         public string Description
         {
             get { return "Steps into/over an instruction/line or out of a method."; }

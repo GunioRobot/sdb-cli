@@ -7,11 +7,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class EvaluationCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Eval"; }
-        }
-
         public string Description
         {
             get { return "Evaluates an expression in the current stack frame's context."; }

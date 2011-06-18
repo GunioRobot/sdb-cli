@@ -17,11 +17,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class DecompileCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Decompile"; }
-        }
-
         public string Description
         {
             get { return "Decompiles the method in the current stack frame."; }

@@ -6,11 +6,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class ExitCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Exit"; }
-        }
-
         public string Description
         {
             get { return "Exits the debugger, killing any running process."; }

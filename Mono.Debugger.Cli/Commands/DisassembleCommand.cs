@@ -7,11 +7,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class DisassembleCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Disasm"; }
-        }
-
         public string Description
         {
             get { return "Disassembles the current stack frame."; }

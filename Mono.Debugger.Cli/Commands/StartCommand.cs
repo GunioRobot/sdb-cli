@@ -6,11 +6,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class StartCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Start"; }
-        }
-
         public string Description
         {
             get { return "Starts a process in the debugger and attaches to it."; }

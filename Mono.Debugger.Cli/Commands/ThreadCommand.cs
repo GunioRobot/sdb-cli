@@ -8,11 +8,6 @@ namespace Mono.Debugger.Cli.Commands
 {
     internal sealed class ThreadCommand : ICommand
     {
-        public string Name
-        {
-            get { return "Thread"; }
-        }
-
         public string Description
         {
             get { return "Lists/switches between active threads."; }

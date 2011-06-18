@@ -46,6 +46,12 @@ namespace Mono.Debugger.Cli.Addins
             {
                 if (type.GetInterfaces().Contains(typeof(ICommand)))
                 {
+                    var attrs = type.GetCustomAttributes(typeof(CommandAddinAttribute), false) as CommandAddinAttribute[];
+
+                    if (attrs.Length == 0)
+                        continue;
+
+                    var attr = attrs[0];
                     var ctor = type.GetConstructor(Type.EmptyTypes);
 
                     if (ctor == null)
@@ -67,13 +73,27 @@ namespace Mono.Debugger.Cli.Addins
                         continue;
                     }
 
-                    if (CommandLine.Commands.Any(x => x.Name == cmd.Name))
+                    string name = null;
+
+                    switch (CommandLine.Dialect.Name)
+                    {
+                        case CommandDialect.Sdb:
+                            name = attr.SdbName;
+                            break;
+                        case CommandDialect.Gdb:
+                            name = attr.GdbName;
+                            break;
+                    }
+
+                    var commands = CommandLine.Dialect.Commands;
+
+                    if (commands.Keys.Any(x => x.Equals(name, StringComparison.OrdinalIgnoreCase)))
                     {
                         Logger.WriteErrorLine("Could not load {0}: Duplicate command name.", type.Name);
                         continue;
                     }
 
-                    CommandLine.Commands.Add(cmd);
+                    commands.Add(name, cmd);
                 }
             }
         }
