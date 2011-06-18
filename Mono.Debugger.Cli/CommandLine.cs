@@ -71,7 +71,7 @@ namespace Mono.Debugger.Cli
 
         private static void InitializeGdbDialect()
         {
-            Dialect = new CommandDialect(CommandDialect.Sdb, new Dictionary<string, ICommand>
+            Dialect = new CommandDialect(CommandDialect.Gdb, new Dictionary<string, ICommand>
             {
                 { "Help", new HelpCommand() },
                 { "Quit", new ExitCommand() },
@@ -86,7 +86,7 @@ namespace Mono.Debugger.Cli
                 { "Catch", new CatchpointCommand() },
                 { "DB", new DatabaseCommand() },
                 { "FC", new FirstChanceCommand() },
-                { "BT", new BacktraceCommand() },
+                { "Backtrace", new BacktraceCommand() },
                 { "Frame", new FrameCommand() },
                 { "Disassemble", new DisassembleCommand() },
                 { "Source", new SourceCommand() },
