@@ -182,7 +182,7 @@ namespace Mono.Debugger.Cli.Debugging
                     CommandLine.ResumeEvent.Set();
             };
 
-            Session.TargetStopped += (sender, e) =>
+            Session.TargetInterrupted += (sender, e) =>
             {
                 _isPaused = true;
                 SetBacktrace(e.Backtrace);
