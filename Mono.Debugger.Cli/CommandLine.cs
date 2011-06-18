@@ -60,8 +60,12 @@ namespace Mono.Debugger.Cli
             Logger.WriteInfoLine("Type \"Help\" for a list of commands or \"Exit\" to quit.");
 
             string line;
-            while ((line = Console.ReadLine()) != null)
+
+            while (true)
             {
+                Logger.WriteInfo(string.Empty);
+                line = Console.ReadLine();
+
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
