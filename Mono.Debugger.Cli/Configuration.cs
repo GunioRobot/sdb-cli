@@ -46,6 +46,10 @@ namespace Mono.Debugger.Cli
 
         public static bool DebugLog { get; private set; }
 
+        public static bool SdbDebugLog { get; private set; }
+
+        public static bool MonoDebugLog { get; private set; }
+
         public static bool UseColors { get; private set; }
 
         public static ConsoleColor InfoColor { get; private set; }

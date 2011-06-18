@@ -7,7 +7,8 @@ namespace Mono.Debugger.Cli.Logging
     {
         public void LogError(string message, Exception ex)
         {
-            Logger.WriteErrorLine("[SDB] {0}: {1}", ex, message);
+            if (Configuration.SdbDebugLog)
+                Logger.WriteErrorLine("[SDB] {0}: {1}", ex, message);
         }
 
         public void LogAndShowException(string message, Exception ex)
@@ -17,7 +18,8 @@ namespace Mono.Debugger.Cli.Logging
 
         public void LogMessage(string messageFormat, params object[] args)
         {
-            Logger.WriteInfoLine("[SDB] {0}", string.Format(messageFormat, args));
+            if (Configuration.SdbDebugLog)
+                Logger.WriteInfoLine("[SDB] {0}", string.Format(messageFormat, args));
         }
     }
 }

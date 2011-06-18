@@ -145,6 +145,9 @@ namespace Mono.Debugger.Cli.Debugging
 
             Session.LogWriter = (isStdErr, text) =>
             {
+                if (!Configuration.MonoDebugLog)
+                    return;
+
                 var str = string.Format("[Mono] {0}", text);
 
                 // The strings we get already have a line feed.
