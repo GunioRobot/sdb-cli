@@ -45,6 +45,7 @@ namespace Mono.Debugger.Cli.Commands
             }
 
             var bt = backtrace.CurrentBacktrace;
+
             for (var i = 0; i < bt.Count; i++)
             {
                 var frame = bt[i];
@@ -54,10 +55,12 @@ namespace Mono.Debugger.Cli.Commands
 
                 // We can't really rely on frame.HasDebugInfo.
                 var hasSource = loc.HasSource();
+
                 if (hasSource)
                     location = string.Format("{0}:{1}{2}", fileName, loc.Line, loc.Column == -1 ? string.Empty : "," + loc.Column);
 
                 var str = string.Format("[{0}] {1}: {2}", i, location, frame.AddressSpace);
+
                 if (i == backtrace.CurrentStackFrameId)
                     Logger.WriteEmphasisLine("{0}", str);
                 else
@@ -67,6 +70,7 @@ namespace Mono.Debugger.Cli.Commands
                 {
                     // Locate the source code.
                     var reader = SoftDebugger.Session.GetSourceReader(fileName);
+
                     if (reader != null)
                     {
                         if (File.GetLastWriteTime(fileName) > SoftDebugger.CurrentExecutable.LastWriteTime)
