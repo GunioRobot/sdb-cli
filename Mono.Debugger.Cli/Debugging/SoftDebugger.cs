@@ -110,7 +110,7 @@ namespace Mono.Debugger.Cli.Debugging
                 if (_runtimePath != null)
                     Logger.WriteInfoLine("Using runtime: {0}", fullPath);
                 else
-                    Logger.WriteErrorLine("No valid runtime found.");
+                    Logger.WriteErrorLine("No valid runtime found. Please check the configuration file ({0}).", Configuration.FileName);
             }
             else
             {

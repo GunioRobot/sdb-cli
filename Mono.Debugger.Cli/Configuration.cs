@@ -38,6 +38,11 @@ namespace Mono.Debugger.Cli
             }
         }
 
+        public static string FileName
+        {
+            get { return _cfg.FilePath; }
+        }
+
         public static string[] RuntimePathPrefixes { get; private set; }
 
         public static string[] AddinAssemblyPaths { get; private set; }
