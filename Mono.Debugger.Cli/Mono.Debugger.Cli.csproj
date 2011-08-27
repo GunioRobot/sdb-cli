@@ -10,7 +10,6 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Mono.Debugger.Cli</RootNamespace>
     <AssemblyName>sdb-cli</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
@@ -52,37 +51,29 @@
     <AssemblyOriginatorKeyFile>Mono.Debugger.Cli.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System">
-    </Reference>
-    <Reference Include="System.Core">
-    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
     <Reference Include="Mono.Debugging, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5e9ce85b0923c84f">
       <HintPath>..\Dependencies\Mono.Debugging.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Debugging.Soft, Version=0.0.0.0, Culture=neutral, PublicKeyToken=5e9ce85b0923c84f">
       <HintPath>..\Dependencies\Mono.Debugging.Soft.dll</HintPath>
     </Reference>
-    <Reference Include="System.Configuration">
-    </Reference>
-    <Reference Include="Mono.Cecil, Version=0.9.4.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Mono.Cecil">
       <HintPath>..\Dependencies\Mono.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="OldNRefactory, Version=2.1.1.0, Culture=neutral, PublicKeyToken=efe927acf176eea2">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="OldNRefactory">
       <HintPath>..\Dependencies\OldNRefactory.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="ICSharpCode.Decompiler, Version=1.0.4181.33785, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="ICSharpCode.Decompiler">
       <HintPath>..\Dependencies\ICSharpCode.Decompiler.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.NRefactory, Version=1.0.4181.33781, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="ICSharpCode.NRefactory">
       <HintPath>..\Dependencies\ICSharpCode.NRefactory.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Debugger.Soft, Version=0.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Mono.Debugger.Soft">
       <HintPath>..\Dependencies\Mono.Debugger.Soft.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -127,6 +118,7 @@
     <Compile Include="Decompilation\DecompilerFormatter.cs" />
     <Compile Include="CommandDialect.cs" />
     <Compile Include="Addins\CommandAddinAttribute.cs" />
+    <Compile Include="Commands\LogCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Mono.Debugger.Cli.snk" />

@@ -46,6 +46,7 @@ namespace Mono.Debugger.Cli
             {
                 { "Help", new HelpCommand() },
                 { "Exit", new ExitCommand() },
+                { "Log", new LogCommand() },
                 { "CD", new CurrentDirectoryCommand() },
                 { "Init", new InitializeCommand() },
                 { "Start", new StartCommand() },
@@ -74,6 +75,7 @@ namespace Mono.Debugger.Cli
             {
                 { "Help", new HelpCommand() },
                 { "Quit", new ExitCommand() },
+                { "Log", new LogCommand() },
                 { "CD", new CurrentDirectoryCommand() },
                 { "Init", new InitializeCommand() },
                 { "Run", new StartCommand() },

@@ -108,7 +108,8 @@ FILES = \
 	Commands/DecompileCommand.cs \
 	Decompilation/DecompilerFormatter.cs \
 	CommandDialect.cs \
-	Addins/CommandAddinAttribute.cs 
+	Addins/CommandAddinAttribute.cs \
+	Commands/LogCommand.cs 
 
 DATA_FILES = 
 
