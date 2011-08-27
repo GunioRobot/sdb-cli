@@ -153,6 +153,12 @@ namespace Mono.Debugger.Cli
 
             if (SoftDebugger.State != DebuggerState.Null)
                 SoftDebugger.Stop();
+
+            if (Logger.LogOutput != null)
+            {
+                Logger.LogOutput.Dispose();
+                Logger.LogOutput = null;
+            }
         }
     }
 }
