@@ -119,7 +119,7 @@ namespace Mono.Debugger.Cli.Commands
 
                 new AddCheckedBlocks().Run(ast);
                 new DeclareVariables(context).Run(ast);
-                ((IAstTransform)new ReplaceMethodCallsWithOperators()).Run(ast);
+                ((IAstTransform)new ReplaceMethodCallsWithOperators(context)).Run(ast);
                 ((IAstTransform)new DelegateConstruction(context)).Run(ast);
             }
             catch (Exception ex)
