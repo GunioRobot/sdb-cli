@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using Mono.Debugging.Soft;
 
@@ -16,6 +17,8 @@ namespace Mono.Debugger.Cli.Logging
             LoggingService.CustomLogger = new LoggerProxy();
         }
 
+        public static TextWriter LogOutput { get; set; }
+
         private static void Write(ConsoleColor color, bool programName, string format, params object[] args)
         {
             lock (_lock)
@@ -24,7 +27,12 @@ namespace Mono.Debugger.Cli.Logging
                     Console.ForegroundColor = color;
 
                 var prefix = programName ? string.Format("[{0}] ", _programName) : string.Empty;
-                Console.Write(string.Format("{0}{1}", prefix, string.Format(format, args)));
+                var str = string.Format("{0}{1}", prefix, string.Format(format, args));
+
+                Console.Write(str);
+
+                if (LogOutput != null)
+                    LogOutput.Write(str);
 
                 if (Configuration.UseColors)
                     Console.ResetColor();
