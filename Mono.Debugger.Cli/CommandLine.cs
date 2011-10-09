@@ -80,6 +80,7 @@ namespace Mono.Debugger.Cli
                 { "Init", new InitializeCommand() },
                 { "Run", new StartCommand() },
                 { "Continue", new ContinueCommand() },
+                { "Cont", new ContinueCommand() },
                 { "C", new ContinueCommand() },
                 { "Step", new StepCommand() },
                 { "Stop", new StopCommand() },
