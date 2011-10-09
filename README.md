@@ -1,19 +1,17 @@
 sdb-cli: Mono Soft Debugger Command Line Interface
 ==================================================
 
-Welcome
--------
+Introduction
+------------
 
 This is sdb-cli, a command line interface to the
-Mono ECMA CLI runtime's soft debugger.
+Mono ECMA CLI runtime's soft debugger. It's useful
+when you want to debug a program without installing
+a full-blown GUI debugger like MonoDevelop, or when
+debugging a command line application.
 
-About
------
-
-This tool allows you to debug .NET applications
-running under the Mono runtime from the command
-line. It aims to provide a gdb/mdbg-like interface
-through a command interpreter.
+The interface is similar to .NET's MDbg tool as
+well as GDB, albeit with some differences in syntax.
 
 Installation
 ------------
@@ -24,4 +22,4 @@ instructions.
 Licensing
 ---------
 
-Please see the LICENSE file for licensing info.
+Please see the LICENSE file for licensing information.
