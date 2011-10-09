@@ -14,7 +14,7 @@ namespace Mono.Debugger.Cli.Commands
 
         public string Arguments
         {
-            get { return "[Add <Expr>|Del <WatchId>|Clear"; }
+            get { return "[Add <Expr>|Del <WatchId>|Clear]"; }
         }
 
         public void Execute(CommandArguments args)
