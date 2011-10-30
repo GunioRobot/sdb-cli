@@ -1,13 +1,13 @@
 AC_DEFUN([SHAMROCK_EXPAND_LIBDIR],
-[	
+[
 	expanded_libdir=`(
-		case $prefix in 
-			NONE) prefix=$ac_default_prefix ;; 
-			*) ;; 
+		case $prefix in
+			NONE) prefix=$ac_default_prefix ;;
+			*) ;;
 		esac
-		case $exec_prefix in 
-			NONE) exec_prefix=$prefix ;; 
-			*) ;; 
+		case $exec_prefix in
+			NONE) exec_prefix=$prefix ;;
+			*) ;;
 		esac
 		eval echo $libdir
 	)`
@@ -17,13 +17,13 @@ AC_DEFUN([SHAMROCK_EXPAND_LIBDIR],
 AC_DEFUN([SHAMROCK_EXPAND_BINDIR],
 [
 	expanded_bindir=`(
-		case $prefix in 
-			NONE) prefix=$ac_default_prefix ;; 
-			*) ;; 
+		case $prefix in
+			NONE) prefix=$ac_default_prefix ;;
+			*) ;;
 		esac
-		case $exec_prefix in 
-			NONE) exec_prefix=$prefix ;; 
-			*) ;; 
+		case $exec_prefix in
+			NONE) exec_prefix=$prefix ;;
+			*) ;;
 		esac
 		eval echo $bindir
 	)`

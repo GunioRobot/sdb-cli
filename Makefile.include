@@ -82,7 +82,7 @@ endef
 # assumes that for a wrapper foo.pc its source template is foo.pc.in
 # if $3 is non-empty then wrapper is marked exec
 define emit-deploy-wrapper
-$($1): $2 
+$($1): $2
 	mkdir -p '$$(shell dirname '$$@')'
 	cp '$$<' '$$@'
 	$(if $3,chmod +x '$$@')
@@ -111,6 +111,6 @@ $(install_satellite_assembly_list):
 	cp $(subst $(DESTDIR)$(libdir)/$(PACKAGE), $(BUILD_DIR), $@) $@
 
 install-satellite-assemblies: $(install_satellite_assembly_list)
-	
+
 uninstall-satellite-assemblies:
 	rm -rf $(install_satellite_assembly_list)

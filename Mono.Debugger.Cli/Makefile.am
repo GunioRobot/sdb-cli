@@ -1,5 +1,5 @@
 
-EXTRA_DIST =  
+EXTRA_DIST =
 
 # Warning: This is an automatically generated file, do not edit!
 
@@ -9,7 +9,7 @@ ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-
 ASSEMBLY = bin/Debug/sdb-cli.exe
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = exe
-PROJECT_REFERENCES = 
+PROJECT_REFERENCES =
 BUILD_DIR = bin/Debug/
 
 SDB_CLI_EXE_MDB_SOURCE=bin/Debug/sdb-cli.exe.mdb
@@ -29,9 +29,9 @@ if ENABLE_RELEASE
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE"
 ASSEMBLY = bin/Release/sdb-cli.exe
-ASSEMBLY_MDB = 
+ASSEMBLY_MDB =
 COMPILE_TARGET = exe
-PROJECT_REFERENCES = 
+PROJECT_REFERENCES =
 BUILD_DIR = bin/Release/
 
 SDB_CLI_EXE_MDB=
@@ -58,15 +58,15 @@ PROGRAMFILES = \
 	$(MONO_DEBUGGER_SOFT_DLL) \
 	$(MONO_CECIL_DLL) \
 	$(ICSHARPCODE_DECOMPILER_DLL) \
-	$(ICSHARPCODE_NREFACTORY_DLL)  
+	$(ICSHARPCODE_NREFACTORY_DLL)
 
 BINARIES = \
-	$(SDB_CLI)  
+	$(SDB_CLI)
 
 
 RESGEN=resgen2
-	
-all: $(ASSEMBLY) $(PROGRAMFILES) $(BINARIES) 
+
+all: $(ASSEMBLY) $(PROGRAMFILES) $(BINARIES)
 
 FILES = \
 	CommandArguments.cs \
@@ -109,18 +109,18 @@ FILES = \
 	Decompilation/DecompilerFormatter.cs \
 	CommandDialect.cs \
 	Addins/CommandAddinAttribute.cs \
-	Commands/LogCommand.cs 
+	Commands/LogCommand.cs
 
-DATA_FILES = 
+DATA_FILES =
 
-RESOURCES = 
+RESOURCES =
 
 EXTRAS = \
 	Mono.Debugger.Cli.snk \
 	App.config \
 	Addins \
 	Decompilation \
-	sdb-cli.in 
+	sdb-cli.in
 
 REFERENCES =  \
 	System \
@@ -137,7 +137,7 @@ DLL_REFERENCES =  \
 	../Dependencies/ICSharpCode.NRefactory.dll \
 	../Dependencies/Mono.Debugger.Soft.dll
 
-CLEANFILES = $(PROGRAMFILES) $(BINARIES) 
+CLEANFILES = $(PROGRAMFILES) $(BINARIES)
 
 include $(top_srcdir)/Makefile.include
 

@@ -50,7 +50,7 @@ DIE=0
 if test "$DIE" -eq 1; then
         exit 1
 fi
-                                                                                
+
 #test $TEST_TYPE $FILE || {
 #        echo "You must run this script in the top-level $PROJECT directory"
 #        exit 1
